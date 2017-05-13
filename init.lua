@@ -352,7 +352,7 @@ if minetest.global_exists("spawneggs") then
 				local pos = pointed_thing.above
 				pos.y = pos.y+1
 				minetest.add_entity(pos,"creeper:creeper")
-				if not minetest.setting_getbool("creative_mode") then
+				if not minetest.settings:get_bool("creative_mode", false) then
 					itemstack:take_item()
 				end
 				return itemstack
