@@ -1,8 +1,7 @@
 -- Original code by Rui: WTFPL
 
 
-local time_sec = 1
-local time_min = time_sec * 60
+local time_min = 60
 local time_hr = time_min * 60
 local time_day = time_hr * 24
 
