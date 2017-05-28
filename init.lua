@@ -1,12 +1,15 @@
 sneaker = {}
+sneaker.modname = minetest.get_current_modname()
+sneaker.modpath = minetest.get_modpath(sneaker.modname)
 
---[[
--- DISABLED!!!
-do return end
---]]
+local scripts = {
+	"tnt_function",
+	"spawn",
+}
 
-dofile(minetest.get_modpath("sneaker").."/tnt_function.lua")
-dofile(minetest.get_modpath("sneaker").."/spawn.lua")
+for I in pairs(scripts) do
+	dofile(sneaker.modpath .. "/" .. scripts[I] .. ".lua")
+end
 
 local function jump(self,pos,direction)
 	local velocity = self.object:get_velocity()
