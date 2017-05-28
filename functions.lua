@@ -1,14 +1,14 @@
--- Functions for sneaker mod
+-- Functions for sneeker mod
 
 
 -- Displays a message in log output
-function sneaker.log(message)
-	minetest.log('action', '[' .. sneaker.modname .. '] ' .. message)
+function sneeker.log(message)
+	minetest.log('action', '[' .. sneeker.modname .. '] ' .. message)
 end
 
--- Displays a message in log output only if 'sneaker.debug' is set to 'true'
-function sneaker.log_debug(message)
-	if sneaker.debug then
-		sneaker.log('[DEBUG] ' .. message)
+-- Displays a message in log output only if 'sneeker.debug' is set to 'true'
+function sneeker.log_debug(message)
+	if sneeker.debug then
+		sneeker.log('[DEBUG] ' .. message)
 	end
 end
