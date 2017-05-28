@@ -11,6 +11,11 @@ end
 
 sneaker.spawn_cap = tonumber(minetest.settings:get("sneaker_spawn_cap")) or 50
 
+if minetest.settings:get_bool("log_mods", false) then
+	minetest.log("action", "Loading mod \"" .. sneaker.modname .. "\" ...")
+	sneaker.log("Spawn cap: " .. tostring(sneaker.spawn_cap))
+end
+
 local scripts = {
 	"tnt_function",
 	"spawn",
