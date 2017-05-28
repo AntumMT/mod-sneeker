@@ -5,6 +5,10 @@ sneaker = {}
 sneaker.modname = minetest.get_current_modname()
 sneaker.modpath = minetest.get_modpath(sneaker.modname)
 
+function sneaker.log(message)
+	minetest.log('action', '[' .. sneaker.modname .. '] ' .. message)
+end
+
 local scripts = {
 	'tnt_function',
 	'spawn',
