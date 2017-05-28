@@ -1,12 +1,12 @@
-creeper = {}
+sneaker = {}
 
 --[[
 -- DISABLED!!!
 do return end
 --]]
 
-dofile(minetest.get_modpath("creeper").."/tnt_function.lua")
-dofile(minetest.get_modpath("creeper").."/spawn.lua")
+dofile(minetest.get_modpath("sneaker").."/tnt_function.lua")
+dofile(minetest.get_modpath("sneaker").."/spawn.lua")
 
 local function jump(self,pos,direction)
 	local velocity = self.object:get_velocity()
@@ -58,7 +58,7 @@ local def = {
 	collisionbox = {-0.25,-0.7,-0.25, 0.25,0.8,0.25},
 	visual = "mesh",
 	mesh = "character.b3d",
-	textures = {"creeper.png"},
+	textures = {"sneaker.png"},
 	makes_footstep_sound = false,
 
 	-- Original
@@ -91,12 +91,12 @@ def.on_activate = function(self,staticdata)
 	if data and type(data) == "table" then
 		if data.powered == true then
 			self.powered = true
-			self.object:set_properties({textures = {"creeper_powered.png"}})
+			self.object:set_properties({textures = {"sneaker_powered.png"}})
 		end
 	else
 		if math.random(0,20) == 20 then
 			self.powered = true
-			self.object:set_properties({textures = {"creeper_powered.png"}})
+			self.object:set_properties({textures = {"sneaker_powered.png"}})
 		end
 	end
 end
@@ -146,7 +146,7 @@ def.on_step = function(self, dtime)
 
 	if self.chase and self.visualx < 2 then
 		if self.hiss == false then
-			minetest.sound_play("creeper_hiss",{pos=pos,gain=1.5,max_hear_distance=2*64})
+			minetest.sound_play("sneaker_hiss",{pos=pos,gain=1.5,max_hear_distance=2*64})
 		end
 		self.visualx = self.visualx+0.05
 		self.object:set_properties({
@@ -237,8 +237,8 @@ def.on_step = function(self, dtime)
 					self.chase = true
 					if self.visualx >= 2 then
 						self.object:remove()
-						creeper.boom(pos,self.powered)
-						minetest.sound_play("creeper_explode",{pos=pos,gain=1.5,max_hear_distance=2*64})
+						sneaker.boom(pos,self.powered)
+						minetest.sound_play("sneaker_explode",{pos=pos,gain=1.5,max_hear_distance=2*64})
 					end
 				end
 			end
@@ -340,18 +340,18 @@ def.get_staticdata = function(self)
 	})
 end
 
-minetest.register_entity("creeper:creeper",def)
+minetest.register_entity("sneaker:sneaker",def)
 
 if minetest.global_exists("spawneggs") then
-	minetest.register_craftitem("creeper:spawnegg",{
-		description = "Creeper Spawn Egg",
-		inventory_image = "creeper_spawnegg.png",
+	minetest.register_craftitem("sneaker:spawnegg",{
+		description = "Sneaker Spawn Egg",
+		inventory_image = "sneaker_spawnegg.png",
 		stack_max = 64,
 		on_place = function(itemstack,placer,pointed_thing)
 			if pointed_thing.type == "node" then
 				local pos = pointed_thing.above
 				pos.y = pos.y+1
-				minetest.add_entity(pos,"creeper:creeper")
+				minetest.add_entity(pos,"sneaker:sneaker")
 				if not minetest.settings:get_bool("creative_mode", false) then
 					itemstack:take_item()
 				end
@@ -361,10 +361,10 @@ if minetest.global_exists("spawneggs") then
 	})
 
 	minetest.register_craft({
-		output = "creeper:spawnegg",
+		output = "sneaker:spawnegg",
 		type = "shapeless",
 		recipe = {"spawneggs:egg", "tnt:tnt",},
 	})
 
-	minetest.register_alias("spawneggs:creeper", "creeper:spawnegg")
+	minetest.register_alias("spawneggs:sneaker", "sneaker:spawnegg")
 end

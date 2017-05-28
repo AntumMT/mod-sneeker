@@ -1,4 +1,4 @@
-# creeper
+# sneaker
 Adds some explosive nuisance.
 
 ## Forum Topic
