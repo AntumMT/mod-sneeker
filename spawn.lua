@@ -5,12 +5,12 @@ local time_min = 60
 local time_hr = time_min * 60
 local time_day = time_hr * 24
 
-local spawn_chance = tonumber(minetest.settings:get("sneaker_spawn_chance")) or 18000
-local spawn_interval = tonumber(minetest.settings:get("sneaker_spawn_interval")) or time_min * 40 -- Default interval is 40 minutes
+local spawn_chance = tonumber(minetest.settings:get("sneeker_spawn_chance")) or 18000
+local spawn_interval = tonumber(minetest.settings:get("sneeker_spawn_interval")) or time_min * 40 -- Default interval is 40 minutes
 
 if minetest.settings:get_bool("log_mods", false) then
-	sneaker.log("Spawn chance: " .. tostring(spawn_chance) .. " (1/" .. tostring(spawn_chance) .. ")")
-	sneaker.log("Spawn interval: " .. tostring(spawn_interval) .. " (" .. tostring(spawn_interval/60) .. " minutes)")
+	sneeker.log("Spawn chance: " .. tostring(spawn_chance) .. " (1/" .. tostring(spawn_chance) .. ")")
+	sneeker.log("Spawn interval: " .. tostring(spawn_interval) .. " (" .. tostring(spawn_interval/60) .. " minutes)")
 end
 
 minetest.register_abm({
@@ -42,6 +42,6 @@ minetest.register_abm({
 		if minetest.get_node(pos).name ~= "air" then
 			return
 		end
-		minetest.add_entity(pos,"sneaker:sneaker")
+		minetest.add_entity(pos,"sneeker:sneeker")
 	end
 })

@@ -1,4 +1,4 @@
-# Sneaker mobile mod for Minetest
+# Sneeker mobile mod for Minetest
 
 Adds some explosive nuisance.
 

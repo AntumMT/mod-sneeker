@@ -1,5 +1,5 @@
--- Settings for sneaker mod
+-- Settings for sneeker mod
 
 
-sneaker.debug = minetest.settings:get_bool("sneaker_debug", false)
-sneaker.spawn_cap = tonumber(minetest.settings:get("sneaker_spawn_cap")) or 50
+sneeker.debug = minetest.settings:get_bool("sneeker_debug", false)
+sneeker.spawn_cap = tonumber(minetest.settings:get("sneeker_spawn_cap")) or 50
