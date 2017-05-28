@@ -1,3 +1,6 @@
+-- Original code by Rui: WTFPL
+
+
 -- From TNT
 local cid_data = {}
 local radius = tonumber(minetest.settings:get('tnt_radius') or 3)

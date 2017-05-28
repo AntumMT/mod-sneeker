@@ -1,3 +1,5 @@
+-- Original code by Rui: WTFPL
+
 
 local time_sec = 1
 local time_min = time_sec * 60

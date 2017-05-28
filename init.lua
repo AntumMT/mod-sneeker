@@ -1,3 +1,6 @@
+-- Original code by Rui: WTFPL
+
+
 sneaker = {}
 sneaker.modname = minetest.get_current_modname()
 sneaker.modpath = minetest.get_modpath(sneaker.modname)
