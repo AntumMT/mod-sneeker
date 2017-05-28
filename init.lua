@@ -9,6 +9,8 @@ function sneaker.log(message)
 	minetest.log('action', '[' .. sneaker.modname .. '] ' .. message)
 end
 
+sneaker.spawn_cap = minetest.setting_get('sneaker_spawn_cap') or 50
+
 local scripts = {
 	'tnt_function',
 	'spawn',
