@@ -5,11 +5,14 @@ local time_min = 60
 local time_hr = time_min * 60
 local time_day = time_hr * 24
 
+local spawn_chance = minetest.setting_get('sneaker_spawn_chance') or 18000
+local spawn_interval = minetest.setting_get('sneaker_spawn_interval') or time_min * 40 -- Default interval is 40 minutes
+
 minetest.register_abm({
 	nodenames = {'default:dirt_with_grass','default:stone'},
 	neighbors = {'air'},
-	interval = time_min * 20, -- Run spawn function every 20 minutes
-	chance = 9000,
+	interval = spawn_interval,
+	chance = spawn_chance,
 	action = function(pos, node, _, active_object_count_wider)
 		if active_object_count_wider > 5 then
 			return
