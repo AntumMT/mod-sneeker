@@ -1,0 +1,6 @@
+# Sets possibility for spawn.
+sneaker_spawn_chance (Spawn chance) int 18000
+
+# Sets frequency of spawn chance.
+#    Default 1200 is equivalent to 20 minutes (60 * 40).
+sneaker_spawn_interval (Spawn interval) int 2400
