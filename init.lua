@@ -5,11 +5,18 @@ sneaker = {}
 sneaker.modname = minetest.get_current_modname()
 sneaker.modpath = minetest.get_modpath(sneaker.modname)
 
+sneaker.debug = minetest.setting_get('sneaker_debug') or false
+sneaker.spawn_cap = minetest.setting_get('sneaker_spawn_cap') or 50
+
 function sneaker.log(message)
 	minetest.log('action', '[' .. sneaker.modname .. '] ' .. message)
 end
 
-sneaker.spawn_cap = minetest.setting_get('sneaker_spawn_cap') or 50
+function sneaker.log_debug(message)
+	if sneaker.debug then
+		sneaker.log('[DEBUG] ' .. message)
+	end
+end
 
 if minetest.setting_getbool('log_mods') then
 	minetest.log('action', 'Loading mod "' .. sneaker.modname .. '" ...')
