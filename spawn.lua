@@ -26,7 +26,7 @@ minetest.register_abm({
 		if not minetest.get_node_light(pos) then
 			return
 		end
-		if minetest.get_node_light(pos) > 5 then
+		if minetest.get_node_light(pos) > sneeker.spawn_maxlight then
 			return
 		end
 		if minetest.get_node_light(pos) < -1 then
