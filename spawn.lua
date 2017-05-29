@@ -5,8 +5,8 @@ local time_min = 60
 local time_hr = time_min * 60
 local time_day = time_hr * 24
 
-local spawn_chance = tonumber(minetest.settings:get("sneeker_spawn_chance")) or 18000
-local spawn_interval = tonumber(minetest.settings:get("sneeker_spawn_interval")) or time_min * 40 -- Default interval is 40 minutes
+local spawn_chance = tonumber(minetest.settings:get("sneeker.spawn_chance")) or 18000
+local spawn_interval = tonumber(minetest.settings:get("sneeker.spawn_interval")) or time_min * 40 -- Default interval is 40 minutes
 
 if minetest.settings:get_bool("log_mods", false) then
 	sneeker.log("Spawn chance: " .. tostring(spawn_chance) .. " (1/" .. tostring(spawn_chance) .. ")")
