@@ -5,12 +5,7 @@ sneeker = {}
 sneeker.modname = minetest.get_current_modname()
 sneeker.modpath = minetest.get_modpath(sneeker.modname)
 
-local log_mods = minetest.setting_getbool("log_mods")
-
-sneeker.mob_name = sneeker.modname .. ":" .. sneeker.modname
-sneeker.spawnegg_name = sneeker.modname .. ":spawnegg"
-
-if log_mods then
+if minetest.settings:get_bool("log_mods", false) then
 	minetest.log("action", "Loading mod \"" .. sneeker.modname .. "\" ...")
 end
 
@@ -19,9 +14,10 @@ dofile(sneeker.modpath .. "/functions.lua")
 
 sneeker.log_debug("Debugging is on")
 
-if log_mods then
-	sneeker.log("Spawn cap: " .. tostring(sneeker.spawn_cap))
-end
+sneeker.mob_name = sneeker.modname .. ":" .. sneeker.modname
+sneeker.spawnegg_name = sneeker.modname .. ":spawnegg"
+
+sneeker.log("Spawn cap: " .. tostring(sneeker.spawn_cap))
 
 local scripts = {
 	"tnt_function",
