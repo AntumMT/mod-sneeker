@@ -17,6 +17,8 @@ end
 dofile(sneeker.modpath .. "/settings.lua")
 dofile(sneeker.modpath .. "/functions.lua")
 
+sneeker.log_debug("Debugging is on")
+
 if log_mods then
 	sneeker.log("Spawn cap: " .. tostring(sneeker.spawn_cap))
 end
