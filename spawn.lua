@@ -14,7 +14,7 @@ if minetest.settings:get_bool("log_mods", false) then
 end
 
 minetest.register_abm({
-	nodenames = {"default:dirt_with_grass","default:stone"},
+	nodenames = {"default:dirt_with_grass", "default:stone"},
 	neighbors = {"air"},
 	interval = spawn_interval,
 	chance = spawn_chance,
@@ -42,6 +42,6 @@ minetest.register_abm({
 		if minetest.get_node(pos).name ~= "air" then
 			return
 		end
-		minetest.add_entity(pos,"sneeker:sneeker")
+		minetest.add_entity(pos, sneeker.mob_name)
 	end
 })

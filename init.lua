@@ -7,6 +7,9 @@ sneeker.modpath = minetest.get_modpath(sneeker.modname)
 
 local log_mods = minetest.setting_getbool("log_mods")
 
+sneeker.mob_name = sneeker.modname .. ":" .. sneeker.modname
+sneeker.spawnegg_name = sneeker.modname .. ":spawnegg"
+
 if log_mods then
 	minetest.log("action", "Loading mod \"" .. sneeker.modname .. "\" ...")
 end
@@ -359,10 +362,10 @@ def.get_staticdata = function(self)
 	})
 end
 
-minetest.register_entity("sneeker:sneeker",def)
+minetest.register_entity(sneeker.mob_name, def)
 
 if minetest.global_exists("spawneggs") then
-	minetest.register_craftitem("sneeker:spawnegg",{
+	minetest.register_craftitem(sneeker.spawnegg_name, {
 		description = "Sneeker Spawn Egg",
 		inventory_image = "sneeker_spawnegg.png",
 		stack_max = 64,
@@ -370,7 +373,7 @@ if minetest.global_exists("spawneggs") then
 			if pointed_thing.type == "node" then
 				local pos = pointed_thing.above
 				pos.y = pos.y+1
-				minetest.add_entity(pos,"sneeker:sneeker")
+				minetest.add_entity(pos, sneeker.mob_name)
 				if not minetest.settings:get_bool("creative_mode", false) then
 					itemstack:take_item()
 				end
@@ -380,10 +383,10 @@ if minetest.global_exists("spawneggs") then
 	})
 
 	minetest.register_craft({
-		output = "sneeker:spawnegg",
+		output = sneeker.spawnegg_name,
 		type = "shapeless",
 		recipe = {"spawneggs:egg", "tnt:tnt",},
 	})
 
-	minetest.register_alias("spawneggs:sneeker", "sneeker:spawnegg")
+	minetest.register_alias("spawneggs:sneeker", sneeker.spawnegg_name)
 end
