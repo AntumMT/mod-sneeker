@@ -18,7 +18,7 @@ function sneeker.log_debug(message)
 	end
 end
 
--- Spawns a sneaker entity
+-- Spawns a sneeker entity
 function sneeker.spawn(pos)
 	minetest.add_entity(pos, sneeker.mob_name)
 	sneeker.log_debug('Spawned entity "' .. sneeker.mob_name .. '" at ' .. tostring(pos.x) .. ',' .. tostring(pos.y))
