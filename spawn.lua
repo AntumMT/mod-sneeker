@@ -52,6 +52,6 @@ minetest.register_abm({
 		end
 		if count >= sneeker.spawn_cap then return end -- Max sneekers already exist
 		
-		minetest.add_entity(pos, sneeker.mob_name)
+		sneeker.spawn(pos)
 	end
 })
