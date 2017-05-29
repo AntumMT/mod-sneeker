@@ -1,9 +1,14 @@
 -- Functions for sneeker mod
 
 
+local log_mods = minetest.setting_getbool('log_mods')
+
+
 -- Displays a message in log output
 function sneeker.log(message)
-	minetest.log('action', '[' .. sneeker.modname .. '] ' .. message)
+	if log_mods then
+		minetest.log('action', '[' .. sneeker.modname .. '] ' .. message)
+	end
 end
 
 -- Displays a message in log output only if 'sneeker.debug' is set to 'true'
