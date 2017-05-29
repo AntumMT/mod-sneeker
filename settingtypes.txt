@@ -12,4 +12,4 @@ sneeker.spawn_chance (Spawn chance) int 2
 sneeker.spawn_interval (Spawn interval) int 120
 
 # Sets the maximum light that a node can have for spawn to occur.
-sneeker.spawn_maxlight (Max light for spawn) int 5
+sneeker.spawn_maxlight (Max light for spawn) int 7
