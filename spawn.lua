@@ -17,56 +17,48 @@ minetest.register_abm({
 	interval = spawn_interval,
 	chance = spawn_chance,
 	action = function(pos, node, _, active_object_count_wider)
-		local spawnit = true
-		
 		if active_object_count_wider > 5 then
-			spawnit = false
+			return
 		end
 		
-		if spawnit then
-			-- Check light value of node
-			pos.y = pos.y+1
-			local node_light = minetest.get_node_light(pos)
-			
-			-- Debugging spawning
-			sneeker.log_debug('Node light level at ' .. sneeker.get_pos_string(pos) .. ': ' .. tostring(node_light))
-			
-			if not node_light or node_light > sneeker.spawn_maxlight or node_light < -1 then
-				spawnit = false
-			end
-			
-			-- Spawn range
-			if pos.y > 31000 then
-				spawnit = false
-			end
-			
-			-- Node must be touching air
-			if minetest.get_node(pos).name ~= 'air' then
-				spawnit = false
-			end
-			pos.y = pos.y+1
-			if minetest.get_node(pos).name ~= 'air' then
-				spawnit = false
-			end
-			
-			if spawnit then
-				-- Get total count of sneekers in world
-				local name, count
-				for name in pairs(minetest.luaentities) do
-				    if name == sneeker.mob_name then
-				        count = count + 1
-				    end
-				end
-				if count >= sneeker.spawn_cap then
-					spawnit = false -- Max sneekers already exist
-				end
-			end
+		-- Check light value of node
+		pos.y = pos.y+1
+		local node_light = minetest.get_node_light(pos)
+		
+		-- Debugging spawning
+		sneeker.log_debug('Node light level at ' .. sneeker.get_pos_string(pos) .. ': ' .. tostring(node_light))
+		
+		if not node_light or node_light > sneeker.spawn_maxlight or node_light < -1 then
+			return
 		end
 		
-		if spawnit then
-			sneeker.spawn(pos)
-		else
-			sneeker.log_debug('Spawn denied')
+		-- Spawn range
+		if pos.y > 31000 then
+			return
 		end
+		
+		-- Node must be touching air
+		if minetest.get_node(pos).name ~= 'air' then
+			return
+		end
+		pos.y = pos.y+1
+		if minetest.get_node(pos).name ~= 'air' then
+			return
+		end
+		
+		-- Get total count of sneekers in world
+		local name, count
+		for name in pairs(minetest.luaentities) do
+		    if name == sneeker.mob_name then
+		        count = count + 1
+		    end
+		end
+		
+		if count >= sneeker.spawn_cap then
+			sneeker.log_debug('Max spawns reached')
+			return
+		end
+		
+		sneeker.spawn(pos)
 	end
 })
