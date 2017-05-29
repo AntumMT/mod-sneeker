@@ -22,19 +22,30 @@ minetest.register_abm({
 		if active_object_count_wider > 5 then
 			return
 		end
+		
+		-- Check light value of node
 		pos.y = pos.y+1
-		if not minetest.get_node_light(pos) then
+		local node_light = minetest.get_node_light(pos)
+		
+		-- Debugging spawning
+		sneaker.log_debug('Node light level at ' .. tostring(pos.x) .. ',' .. tostring(pos.y) .. ': ' .. tostring(node_light))
+		
+		if not node_light then
 			return
 		end
-		if minetest.get_node_light(pos) > sneeker.spawn_maxlight then
+		if node_light > sneeker.spawn_maxlight then
 			return
 		end
-		if minetest.get_node_light(pos) < -1 then
+		if node_light < -1 then
 			return
 		end
+		
+		-- Spawn range
 		if pos.y > 31000 then
 			return
 		end
+		
+		-- Node must be touching air
 		if minetest.get_node(pos).name ~= 'air' then
 			return
 		end
