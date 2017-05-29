@@ -14,6 +14,8 @@ end
 dofile(sneeker.modpath .. '/settings.lua')
 dofile(sneeker.modpath .. '/functions.lua')
 
+sneeker.log_debug('Debugging is on')
+
 sneeker.mob_name = sneeker.modname .. ':' .. sneeker.modname
 sneeker.spawnegg_name = sneeker.modname .. ':spawnegg'
 
