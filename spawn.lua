@@ -9,7 +9,7 @@ local spawn_chance = tonumber(minetest.settings:get("sneeker.spawn_chance")) or 
 local spawn_interval = tonumber(minetest.settings:get("sneeker.spawn_interval")) or time_min * 40 -- Default interval is 40 minutes
 
 sneeker.log("Spawn chance: " .. tostring(spawn_chance) .. " (1/" .. tostring(spawn_chance) .. ")")
-sneeker.log("Spawn interval: " .. tostring(spawn_interval) .. " (" .. tostring(spawn_interval/60) .. " minutes)")
+sneeker.log("Spawn interval: " .. tostring(spawn_interval) .. " (" .. tostring(spawn_interval/60) .. " minute(s))")
 
 minetest.register_abm({
 	nodenames = {"default:dirt_with_grass", "default:stone"},
