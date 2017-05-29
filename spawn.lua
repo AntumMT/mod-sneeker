@@ -26,7 +26,7 @@ minetest.register_abm({
 		local node_light = minetest.get_node_light(pos)
 
 		-- Debugging spawning
-		sneaker.log_debug('Node light level at ' .. tostring(pos.x) .. ',' .. tostring(pos.y) .. ': ' .. tostring(node_light))
+		sneeker.log_debug('Node light level at ' .. tostring(pos.x) .. ',' .. tostring(pos.y) .. ': ' .. tostring(node_light))
 
 		if not node_light then
 			return
