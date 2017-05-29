@@ -5,7 +5,7 @@ local time_min = 60
 local time_hr = time_min * 60
 local time_day = time_hr * 24
 
-local spawn_chance = minetest.setting_get('sneeker.spawn_chance') or 18000
+local spawn_chance = minetest.setting_get('sneeker.spawn_chance') or 2 -- 50% chance of spawn
 local spawn_interval = minetest.setting_get('sneeker.spawn_interval') or time_min * 40 -- Default interval is 40 minutes
 
 local spawn_chance_percent = tostring(math.floor(1 / spawn_chance * 100)) .. '%'

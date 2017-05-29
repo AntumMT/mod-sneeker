@@ -5,7 +5,7 @@ sneeker.debug (Log debug output) bool false
 sneeker.spawn_cap (Maximum spawns) int 25
 
 # Sets possibility for spawn.
-sneeker.spawn_chance (Spawn chance) int 18000
+sneeker.spawn_chance (Spawn chance) int 2
 
 # Sets frequency of spawn chance.
 #    Default 1200 is equivalent to 20 minutes (60 * 40).
