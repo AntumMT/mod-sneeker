@@ -10,3 +10,6 @@ sneeker.spawn_chance (Spawn chance) int 18000
 # Sets frequency of spawn chance.
 #    Default 1200 is equivalent to 20 minutes (60 * 40).
 sneeker.spawn_interval (Spawn interval) int 2400
+
+# Sets the maximum light that a node can have for spawn to occur.
+sneeker.spawn_maxlight (Max light for spawn) int 5
