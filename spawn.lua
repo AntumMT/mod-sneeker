@@ -47,9 +47,9 @@ minetest.register_abm({
 		end
 		
 		-- Get total count of sneekers in world
-		local name, count
-		for name in pairs(minetest.luaentities) do
-		    if name == sneeker.mob_name then
+		local count = 0
+		for I in pairs(minetest.luaentities) do
+		    if minetest.luaentities[I].name == sneeker.mob_name then
 		        count = count + 1
 		    end
 		end
