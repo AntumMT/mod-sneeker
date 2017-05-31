@@ -7,11 +7,14 @@ local time_day = time_hr * 24
 
 local spawn_chance = tonumber(minetest.settings:get("sneeker.spawn_chance")) or 2 -- 50% chance of spawn
 local spawn_interval = tonumber(minetest.settings:get("sneeker.spawn_interval")) or time_min * 2 -- Default interval is 2 minutes
+local spawn_maxlight = tonumber(minetest.settings:get("sneeker.spawn_maxlight")) or 5 -- Maximum light of node for spawn
 
 local spawn_chance_percent = tostring(math.floor(1 / spawn_chance * 100)) .. "%"
 
+<<<<<<< HEAD
 sneeker.log("Spawn chance: " .. spawn_chance_percent)
 sneeker.log("Spawn interval: " .. tostring(spawn_interval) .. " (" .. tostring(spawn_interval/60) .. " minute(s))")
+sneeker.log("Maximum light value for spawn: " .. tostring(spawn_maxlight))
 
 minetest.register_abm({
 	nodenames = {"default:dirt_with_grass", "default:stone"},
@@ -29,8 +32,8 @@ minetest.register_abm({
 
 		-- Debugging spawning
 		sneeker.log_debug("Node light level at " .. sneeker.get_pos_string(pos) .. ": " .. tostring(node_light))
-
-		if not node_light or node_light > sneeker.spawn_maxlight or node_light < -1 then
+		
+		if not node_light or node_light > spawn_maxlight or node_light < -1 then
 			sneeker.log_debug("Node not dark enough for spawn")
 			return
 		end
