@@ -5,12 +5,14 @@ local time_min = 60
 local time_hr = time_min * 60
 local time_day = time_hr * 24
 
+local spawn_cap = minetest.setting_get('sneeker.spawn_cap') or 25 -- Maximum number of spawns active at one time
 local spawn_chance = minetest.setting_get('sneeker.spawn_chance') or 2 -- 50% chance of spawn
 local spawn_interval = minetest.setting_get('sneeker.spawn_interval') or time_min * 2 -- Default interval is 2 minutes
 local spawn_maxlight = minetest.setting_get('sneeker.spawn_maxlight') or 5 -- Maximum light of node for spawn
 
 local spawn_chance_percent = tostring(math.floor(1 / spawn_chance * 100)) .. '%'
 
+sneeker.log('Spawn cap: ' .. tostring(sneeker.spawn_cap))
 sneeker.log('Spawn chance: ' .. spawn_chance_percent)
 sneeker.log('Spawn interval: ' .. tostring(spawn_interval) .. ' (' .. tostring(spawn_interval/60) .. ' minute(s))')
 sneeker.log('Maximum light value for spawn: ' .. tostring(spawn_maxlight))
@@ -59,9 +61,9 @@ minetest.register_abm({
 		    end
 		end
 		
-		sneeker.log_debug('Current active spawns: ' .. tostring(count) .. '/' .. tostring(sneeker.spawn_cap))
+		sneeker.log_debug('Current active spawns: ' .. tostring(count) .. '/' .. tostring(spawn_cap))
 		
-		if count >= sneeker.spawn_cap then
+		if count >= spawn_cap then
 			sneeker.log_debug('Max spawns reached')
 			return
 		end
