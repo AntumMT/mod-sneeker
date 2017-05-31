@@ -7,4 +7,4 @@ sneeker.debug = minetest.settings:get_bool("sneeker.debug", false)
 sneeker.spawn_cap = tonumber(minetest.settings:get("sneeker.spawn_cap")) or 25
 
 -- Maximum light of node for spawn
-sneeker.spawn_maxlight = tonumber(minetest.settings:get("sneeker.spawn_maxlight")) or 7
+sneeker.spawn_maxlight = tonumber(minetest.settings:get("sneeker.spawn_maxlight")) or 5
