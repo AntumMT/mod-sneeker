@@ -5,7 +5,7 @@ local time_min = 60
 local time_hr = time_min * 60
 local time_day = time_hr * 24
 
-local spawn_cap = tonumber(minetest.settings:get("sneeker.spawn_cap")) or 25 -- Maximum number of spawns active at one time
+local spawn_cap = tonumber(minetest.settings:get("sneeker.spawn_cap")) or 10 -- Maximum number of spawns active at one time
 local spawn_chance = tonumber(minetest.settings:get("sneeker.spawn_chance")) or 1000 -- 1/1000 chance of spawn
 local spawn_interval = tonumber(minetest.settings:get("sneeker.spawn_interval")) or time_min * 4 -- Default interval is 4 minutes
 local spawn_maxlight = tonumber(minetest.settings:get("sneeker.spawn_maxlight")) or 5 -- Maximum light of node for spawn
