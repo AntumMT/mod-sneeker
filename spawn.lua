@@ -12,7 +12,7 @@ local spawn_maxlight = tonumber(minetest.settings:get("sneeker.spawn_maxlight"))
 
 local spawn_chance_percent = tostring(math.floor(1 / spawn_chance * 100)) .. "%"
 
-sneeker.log("Spawn cap: " .. tostring(sneeker.spawn_cap))
+sneeker.log("Spawn cap: " .. tostring(spawn_cap))
 sneeker.log("Spawn chance: " .. spawn_chance_percent)
 sneeker.log("Spawn interval: " .. tostring(spawn_interval) .. " (" .. tostring(spawn_interval/60) .. " minute(s))")
 sneeker.log("Maximum light value for spawn: " .. tostring(spawn_maxlight))
