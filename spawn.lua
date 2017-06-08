@@ -10,7 +10,13 @@ local spawn_chance = tonumber(minetest.settings:get("sneeker.spawn_chance")) or 
 local spawn_interval = tonumber(minetest.settings:get("sneeker.spawn_interval")) or time_min * 4 -- Default interval is 4 minutes
 local spawn_maxlight = tonumber(minetest.settings:get("sneeker.spawn_maxlight")) or 5 -- Maximum light of node for spawn
 
-local spawn_chance_percent = tostring(math.floor(1 / spawn_chance * 100)) .. "%"
+-- Display spawn chance as percentage in log
+local spawn_chance_percent = math.floor(1 / spawn_chance * 100)
+if spawn_chance_percent < 1 then
+	spawn_chance_percent = "Less than 1%"
+else
+	spawn_chance_percent = tostring(spawn_chance_percent) .. "%"
+end
 
 sneeker.log("Spawn cap: " .. tostring(spawn_cap))
 sneeker.log("Spawn chance: " .. spawn_chance_percent)
