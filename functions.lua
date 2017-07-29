@@ -1,13 +1,13 @@
 -- Functions for sneeker mod
 
 
-local log_mods = minetest.settings:get_bool("log_mods", false)
+local log_mods = core.settings:get_bool("log_mods", false)
 
 
 -- Displays a message in log output
 function sneeker.log(message)
 	if log_mods then
-		minetest.log('action', '[' .. sneeker.modname .. '] ' .. message)
+		core.log('action', '[' .. sneeker.modname .. '] ' .. message)
 	end
 end
 
@@ -20,7 +20,7 @@ end
 
 -- Spawns a sneeker entity
 function sneeker.spawn(pos)
-	minetest.add_entity(pos, sneeker.mob_name)
+	core.add_entity(pos, sneeker.mob_name)
 	sneeker.log_debug('Spawned entity "' .. sneeker.mob_name .. '" at ' .. tostring(pos.x) .. ',' .. tostring(pos.y))
 end
 

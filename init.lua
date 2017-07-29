@@ -2,11 +2,11 @@
 
 
 sneeker = {}
-sneeker.modname = minetest.get_current_modname()
-sneeker.modpath = minetest.get_modpath(sneeker.modname)
+sneeker.modname = core.get_current_modname()
+sneeker.modpath = core.get_modpath(sneeker.modname)
 
-if minetest.settings:get_bool("log_mods", false) then
-	minetest.log("action", "Loading mod \"" .. sneeker.modname .. "\" ...")
+if core.settings:get_bool("log_mods", false) then
+	core.log("action", "Loading mod \"" .. sneeker.modname .. "\" ...")
 end
 
 dofile(sneeker.modpath .. "/settings.lua")
@@ -28,21 +28,21 @@ end
 
 local function jump(self,pos,direction)
 	local velocity = self.object:get_velocity()
-	if minetest.registered_nodes[minetest.get_node(pos).name].climbable then
+	if core.registered_nodes[core.get_node(pos).name].climbable then
 		self.object:set_velocity({x=velocity.x,y=4,z=velocity.z})
 		return
 	end
 
 	local spos = {x=pos.x+direction.x,y=pos.y,z=pos.z+direction.z}
-	local node = minetest.get_node_or_nil(spos)
+	local node = core.get_node_or_nil(spos)
 	spos.y = spos.y+1
-	local node2 = minetest.get_node_or_nil(spos)
+	local node2 = core.get_node_or_nil(spos)
 	local def,def2 = {}
 	if node and node.name then
-		def = minetest.registered_items[node.name]
+		def = core.registered_items[node.name]
 	end
 	if node2 and node2.name then
-		def2 = minetest.registered_items[node2.name]
+		def2 = core.registered_items[node2.name]
 	end
 	if def and def.walkable
 	and def2 and not def2.walkable
@@ -105,7 +105,7 @@ def.on_activate = function(self,staticdata)
 	self.state = math.random(1,2)
 	self.old_y = self.object:get_pos().y
 
-	local data = minetest.deserialize(staticdata)
+	local data = core.deserialize(staticdata)
 	if data and type(data) == "table" then
 		if data.powered == true then
 			self.powered = true
@@ -134,7 +134,7 @@ def.on_step = function(self, dtime)
 
 	local pos = self.object:get_pos()
 	local yaw = self.object:get_yaw()
-	local inside = minetest.get_objects_inside_radius(pos,10)
+	local inside = core.get_objects_inside_radius(pos,10)
 	local walk_speed = self.walk_speed
 	local animation = self.animation
 	local anim_speed = self.animation_speed
@@ -164,7 +164,7 @@ def.on_step = function(self, dtime)
 
 	if self.chase and self.visualx < 2 then
 		if self.hiss == false then
-			minetest.sound_play("sneeker_hiss",{pos=pos,gain=1.5,max_hear_distance=2*64})
+			core.sound_play("sneeker_hiss",{pos=pos,gain=1.5,max_hear_distance=2*64})
 		end
 		self.visualx = self.visualx+0.05
 		self.object:set_properties({
@@ -220,7 +220,7 @@ def.on_step = function(self, dtime)
 			local direction = self.direction
 			local npos = {x=pos.x+direction.x,y=pos.y+0.2,z=pos.z+direction.z}
 			if velocity.x == 0 or velocity.z == 0
-			or minetest.registered_nodes[minetest.get_node(npos).name].walkable then
+			or core.registered_nodes[core.get_node(npos).name].walkable then
 				local select_turn = math.random(1,2)
 				if select_turn == 1 then
 					self.turn = "left"
@@ -246,7 +246,7 @@ def.on_step = function(self, dtime)
 
 		self.turn = "straight"
 
-		local inside_2 = minetest.get_objects_inside_radius(pos,2)
+		local inside_2 = core.get_objects_inside_radius(pos,2)
 
 		-- Boom
 		if #inside_2 ~= 0 then
@@ -256,7 +256,7 @@ def.on_step = function(self, dtime)
 					if self.visualx >= 2 then
 						self.object:remove()
 						sneeker.boom(pos,self.powered)
-						minetest.sound_play("sneeker_explode",{pos=pos,gain=1.5,max_hear_distance=2*64})
+						core.sound_play("sneeker_explode",{pos=pos,gain=1.5,max_hear_distance=2*64})
 					end
 				end
 			end
@@ -316,8 +316,8 @@ def.on_step = function(self, dtime)
 	end
 
 	-- Swim
-	local node = minetest.get_node(pos)
-	if minetest.get_item_group(node.name,"water") ~= 0 then
+	local node = core.get_node(pos)
+	if core.get_item_group(node.name,"water") ~= 0 then
 		self.object:set_acceleration({x=0,y=1,z=0})
 		local velocity = self.object:get_velocity()
 		if self.object:get_velocity().y > 5 then
@@ -335,7 +335,7 @@ def.on_punch = function(self,puncher,time_from_last_punch,tool_capabilities,dir)
 		local knockback_level = self.knockback_level
 		self.object:set_velocity({x=dir.x*knockback_level,y=3,z=dir.z*knockback_level})
 		self.knockback = true
-		minetest.after(0.6,function()
+		core.after(0.6,function()
 			self.knockback = false
 		end)
 	end
@@ -344,24 +344,24 @@ def.on_punch = function(self,puncher,time_from_last_punch,tool_capabilities,dir)
 		local x = 1/math.random(1,5)*dir.x
 		local z = 1/math.random(1,5)*dir.z
 		local p = {x=pos.x+x,y=pos.y,z=pos.z+z}
-		local node = minetest.get_node_or_nil(p)
+		local node = core.get_node_or_nil(p)
 		if node == nil or not node.name or node.name ~= "air" then
 			p = pos
 		end
-		local obj = minetest.add_item(p, {name="tnt:gunpowder",count=math.random(0,2)})
+		local obj = core.add_item(p, {name="tnt:gunpowder",count=math.random(0,2)})
 	end
 end
 
 def.get_staticdata = function(self)
-	return minetest.serialize({
+	return core.serialize({
 		powered = self.powered
 	})
 end
 
-minetest.register_entity(sneeker.mob_name, def)
+core.register_entity(sneeker.mob_name, def)
 
-if minetest.global_exists("spawneggs") then
-	minetest.register_craftitem(sneeker.spawnegg_name, {
+if core.global_exists("spawneggs") then
+	core.register_craftitem(sneeker.spawnegg_name, {
 		description = "Sneeker Spawn Egg",
 		inventory_image = "sneeker_spawnegg.png",
 		stack_max = 64,
@@ -369,8 +369,8 @@ if minetest.global_exists("spawneggs") then
 			if pointed_thing.type == "node" then
 				local pos = pointed_thing.above
 				pos.y = pos.y+1
-				minetest.add_entity(pos, sneeker.mob_name)
-				if not minetest.settings:get_bool("creative_mode", false) then
+				core.add_entity(pos, sneeker.mob_name)
+				if not core.settings:get_bool("creative_mode", false) then
 					itemstack:take_item()
 				end
 				return itemstack
@@ -378,11 +378,11 @@ if minetest.global_exists("spawneggs") then
 		end
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = sneeker.spawnegg_name,
 		type = "shapeless",
 		recipe = {"spawneggs:egg", "tnt:tnt",},
 	})
 
-	minetest.register_alias("spawneggs:sneeker", sneeker.spawnegg_name)
+	core.register_alias("spawneggs:sneeker", sneeker.spawnegg_name)
 end
