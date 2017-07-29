@@ -5,10 +5,10 @@ local time_min = 60
 local time_hr = time_min * 60
 local time_day = time_hr * 24
 
-local spawn_cap = tonumber(minetest.settings:get('sneeker.spawn_cap')) or 10 -- Maximum number of spawns active at one time
-local spawn_chance = tonumber(minetest.settings:get('sneeker.spawn_chance')) or 1000 -- 1/1000 chance of spawn
-local spawn_interval = tonumber(minetest.settings:get('sneeker.spawn_interval')) or time_min * 4 -- Default interval is 4 minutes
-local spawn_maxlight = tonumber(minetest.settings:get('sneeker.spawn_maxlight')) or 5 -- Maximum light of node for spawn
+local spawn_cap = tonumber(core.settings:get('sneeker.spawn_cap')) or 10 -- Maximum number of spawns active at one time
+local spawn_chance = tonumber(core.settings:get('sneeker.spawn_chance')) or 1000 -- 1/1000 chance of spawn
+local spawn_interval = tonumber(core.settings:get('sneeker.spawn_interval')) or time_min * 4 -- Default interval is 4 minutes
+local spawn_maxlight = tonumber(core.settings:get('sneeker.spawn_maxlight')) or 5 -- Maximum light of node for spawn
 
 -- Display spawn chance as percentage in log
 local spawn_chance_percent = math.floor(1 / spawn_chance * 100)
@@ -23,7 +23,7 @@ sneeker.log('Spawn chance: ' .. spawn_chance_percent)
 sneeker.log('Spawn interval: ' .. tostring(spawn_interval) .. ' (' .. tostring(spawn_interval/60) .. ' minute(s))')
 sneeker.log('Maximum light value for spawn: ' .. tostring(spawn_maxlight))
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = {'default:dirt_with_grass', 'default:stone'},
 	neighbors = {'air'},
 	interval = spawn_interval,
@@ -35,7 +35,7 @@ minetest.register_abm({
 		
 		-- Check light value of node
 		pos.y = pos.y+1
-		local node_light = minetest.get_node_light(pos)
+		local node_light = core.get_node_light(pos)
 		
 		-- Debugging spawning
 		sneeker.log_debug('Node light level at ' .. sneeker.get_pos_string(pos) .. ': ' .. tostring(node_light))
@@ -51,18 +51,18 @@ minetest.register_abm({
 		end
 		
 		-- Node must be touching air
-		if minetest.get_node(pos).name ~= 'air' then
+		if core.get_node(pos).name ~= 'air' then
 			return
 		end
 		pos.y = pos.y+1
-		if minetest.get_node(pos).name ~= 'air' then
+		if core.get_node(pos).name ~= 'air' then
 			return
 		end
 		
 		-- Get total count of sneekers in world
 		local count = 0
-		for I in pairs(minetest.luaentities) do
-		    if minetest.luaentities[I].name == sneeker.mob_name then
+		for I in pairs(core.luaentities) do
+		    if core.luaentities[I].name == sneeker.mob_name then
 		        count = count + 1
 		    end
 		end
