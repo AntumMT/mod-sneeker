@@ -8,7 +8,10 @@ local time_day = time_hr * 24
 local spawn_cap = tonumber(core.settings:get("sneeker.spawn_cap")) or 10 -- Maximum number of spawns active at one time
 local spawn_chance = tonumber(core.settings:get("sneeker.spawn_chance")) or 1000 -- 1/1000 chance of spawn
 local spawn_interval = tonumber(core.settings:get("sneeker.spawn_interval")) or time_min * 4 -- Default interval is 4 minutes
-local spawn_maxlight = tonumber(core.settings:get("sneeker.spawn_maxlight")) or 5 -- Maximum light of node for spawn
+local spawn_minlight = tonumber(core.settings:get("sneeker.spawn_minlight")) or -1 -- Minimum light of node required for spawn
+local spawn_maxlight = tonumber(core.settings:get("sneeker.spawn_maxlight")) or 5 -- Maximum light of node allowed for spawn
+local spawn_minheight = tonumber(core.settings:get("sneeker.spawn_minheight")) or -31000 -- Minimum height allowed for spawn
+local spawn_maxheight = tonumber(core.settings:get("sneeker.spawn_maxheight")) or 31000 -- Maximum height allowed for spawn
 
 -- Display spawn chance as percentage in log
 local spawn_chance_percent = math.floor(1 / spawn_chance * 100)
@@ -40,13 +43,21 @@ core.register_abm({
 		-- Debugging spawning
 		sneeker.log_debug("Node light level at " .. sneeker.get_pos_string(pos) .. ": " .. tostring(node_light))
 
-		if not node_light or node_light > spawn_maxlight or node_light < -1 then
+		-- Node light level
+		if not node_light or node_light > spawn_maxlight then
 			sneeker.log_debug("Node not dark enough for spawn")
+			return
+		elseif node_light < spawn_minlight then
+			sneeker.log_debug("Node too dark for spawn")
 			return
 		end
 
 		-- Spawn range
-		if pos.y > 31000 then
+		if spawn_minheight ~= nil and pos.y < spawn_minheight then
+			sneeker.log_debug("Position is too low for spawn")
+			return
+		elseif pos.y > spawn_maxheight then
+			sneeker.log_debug("Position is too high for spawn")
 			return
 		end
 
