@@ -9,7 +9,7 @@ local spawn_cap = tonumber(core.settings:get("sneeker.spawn_cap")) or 10 -- Maxi
 local spawn_chance = tonumber(core.settings:get("sneeker.spawn_chance")) or 1000 -- 1/1000 chance of spawn
 local spawn_interval = tonumber(core.settings:get("sneeker.spawn_interval")) or time_min * 4 -- Default interval is 4 minutes
 local spawn_minlight = tonumber(core.settings:get("sneeker.spawn_minlight")) or -1 -- Minimum light of node required for spawn
-local spawn_maxlight = tonumber(core.settings:get("sneeker.spawn_maxlight")) or 5 -- Maximum light of node allowed for spawn
+local spawn_maxlight = tonumber(core.settings:get("sneeker.spawn_maxlight")) or 4 -- Maximum light of node allowed for spawn
 local spawn_minheight = tonumber(core.settings:get("sneeker.spawn_minheight")) or -31000 -- Minimum height allowed for spawn
 local spawn_maxheight = tonumber(core.settings:get("sneeker.spawn_maxheight")) or 31000 -- Maximum height allowed for spawn
 

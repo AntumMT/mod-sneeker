@@ -11,7 +11,7 @@ sneeker.spawn_interval (Sneeker spawn interval) int 240
 sneeker.spawn_minlight (Sneeker min light for spawn) int -1
 
 # Sets the maximum light that a node can have for spawn to occur.
-sneeker.spawn_maxlight (Sneeker max light for spawn) int 5
+sneeker.spawn_maxlight (Sneeker max light for spawn) int 4
 
 # Sets the lowest position at which sneeker can spawn.
 sneeker.spawn_minheight (Sneeker min spawn height) int -31000
