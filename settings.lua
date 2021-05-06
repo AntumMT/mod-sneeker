@@ -50,4 +50,4 @@ sneeker.spawn_minheight = tonumber(core.settings:get("sneeker.spawn_minheight"))
 --  Default: 31000
 --
 --  @setting sneeker.spawn_maxheight
-sneeker.spawn_maxheight = tonumber(core.settings:get("sneeker.spawn_maxheight")) or 31000 -- Maximum height allowed for spawn
+sneeker.spawn_maxheight = tonumber(core.settings:get("sneeker.spawn_maxheight")) or 31000
