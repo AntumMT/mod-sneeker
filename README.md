@@ -2,6 +2,8 @@
 
 Adds some explosive nuisance.
 
+![screenshot](screenshot.png)
+
 ## Forum Topic
 
 - Original thread: https://forum.minetest.net/viewtopic.php?t=11891
