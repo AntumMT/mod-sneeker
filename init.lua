@@ -5,14 +5,36 @@ sneeker = {}
 sneeker.modname = core.get_current_modname()
 sneeker.modpath = core.get_modpath(sneeker.modname)
 
+dofile(sneeker.modpath .. "/settings.lua")
+
+sneeker.log = function(lvl, msg)
+	if lvl == "debug" and not sneeker.debug then return end
+
+	if not msg then
+		msg = lvl
+		lvl = nil
+	end
+
+	msg = "[" .. sneeker.modname .. "] " .. msg
+	if lvl == "debug" then
+		msg = "[DEBUG] " .. msg
+	end
+
+	if not lvl then
+		core.log(msg)
+	else
+		core.log(lvl, msg)
+	end
+end
+
+
 if core.settings:get_bool("log_mods", false) then
 	core.log("action", "Loading mod \"" .. sneeker.modname .. "\" ...")
 end
 
-dofile(sneeker.modpath .. "/settings.lua")
 dofile(sneeker.modpath .. "/functions.lua")
 
-sneeker.log_debug("Debugging is on")
+sneeker.log("debug", "Debugging is on")
 
 sneeker.mob_name = sneeker.modname .. ":" .. sneeker.modname
 sneeker.spawnegg_name = sneeker.modname .. ":spawnegg"

@@ -46,23 +46,23 @@ core.register_abm({
 		local node_light = core.get_node_light(pos)
 
 		-- Debugging spawning
-		sneeker.log_debug("Node light level at " .. sneeker.get_pos_string(pos) .. ": " .. tostring(node_light))
+		sneeker.log("debug", "Node light level at " .. sneeker.get_pos_string(pos) .. ": " .. tostring(node_light))
 
 		-- Node light level
 		if not node_light or node_light > spawn_maxlight then
-			sneeker.log_debug("Node not dark enough for spawn")
+			sneeker.log("debug", "Node not dark enough for spawn")
 			return
 		elseif node_light < spawn_minlight then
-			sneeker.log_debug("Node too dark for spawn")
+			sneeker.log("debug", "Node too dark for spawn")
 			return
 		end
 
 		-- Spawn range
 		if spawn_minheight ~= nil and pos.y < spawn_minheight then
-			sneeker.log_debug("Position is too low for spawn")
+			sneeker.log("debug", "Position is too low for spawn")
 			return
 		elseif pos.y > spawn_maxheight then
-			sneeker.log_debug("Position is too high for spawn")
+			sneeker.log("debug", "Position is too high for spawn")
 			return
 		end
 
@@ -83,10 +83,10 @@ core.register_abm({
 		    end
 		end
 
-		sneeker.log_debug("Current active spawns: " .. tostring(count) .. "/" .. tostring(spawn_cap))
+		sneeker.log("debug", "Current active spawns: " .. tostring(count) .. "/" .. tostring(spawn_cap))
 
 		if count >= spawn_cap then
-			sneeker.log_debug("Max spawns reached")
+			sneeker.log("debug", "Max spawns reached")
 			return
 		end
 
