@@ -1,18 +1,51 @@
-# Sneeker mobile mod for Minetest
+## Sneeker mod for Minetest
 
-Adds some explosive nuisance.
+---
+### Description:
+
+An explosive nuisance for [Minetest](http://minetest.net/).
 
 ![screenshot](screenshot.png)
 
-## Forum Topic
+---
+### Licensing:
 
-- Original thread: https://forum.minetest.net/viewtopic.php?t=11891
-
-## License
-
-- **Code:**
+- **Code:** [MIT](LICENSE.txt)
     - Original by Rui: WTFPL
-    - AntumDeluge: [MIT][lic.mit]
 
+---
+### Usage:
 
-[lic.mit]: LICENSE.txt
+Settings:
+- ***sneeker.spawn_chance***
+  - Sets possibility for spawn.
+	- type: int
+	- default: 10000
+- ***sneeker.spawn_interval***
+  - Sets frequency of spawn chance.
+	- type: int
+	- default: 240 (4 minutes)
+- ***sneeker.spawn_minlight***
+  - Sets the minimum light that a node must have for spawn to occur.
+	- type: int
+	- default: 0
+- ***sneeker.spawn_maxlight***
+  - Sets the maximum light that a node can have for spawn to occur.
+	- type: int
+	- default: 9
+- ***sneeker.spawn_minheight***
+  - Sets the maximum light that a node can have for spawn to occur.
+	- type: int
+	- default: -31000
+- ***sneeker.spawn_maxheight***
+  - Sets the lowest position at which sneeker can spawn.
+	- type: int
+	- default 31000
+
+---
+### Links:
+
+- [Original forum thread](https://forum.minetest.net/viewtopic.php?t=11891)
+- [Git repo](https://github.com/AntumMT/mod-sneeker)
+- [Changelog](CHANGES.txt)
+- [TODO](TODO.txt)
