@@ -111,19 +111,26 @@ local def = {
 	animation_speed = 30,
 	knockback_level = 2
 }
+]]
 
-def.on_activate = function(self, staticdata)
+local sneeker_on_activate = function(self, staticdata)
+	--[[
 	self.yaw = 0
 	self.anim = 1
+	]]
 	self.timer = 0
 	self.visualx = 1
+	--[[
 	self.jump_timer = 0
 	self.turn_timer = 0
 	self.turn_speed = 0
+	]]
 	self.powered = false
+	--[[
 	self.knockback = false
 	self.state = math.random(1, 2)
 	self.old_y = self.object:get_pos().y
+	]]
 
 	local data = core.deserialize(staticdata)
 	if data and type(data) == "table" then
@@ -139,7 +146,60 @@ def.on_activate = function(self, staticdata)
 	end
 end
 
-def.on_step = function(self, dtime)
+local sneeker_on_step = function(self, dtime)
+	-- DEBUG:
+	--core.log("Mode: " .. tostring(self.mode))
+
+	if self.stunned then return false end
+
+	local pos = self.object:get_pos()
+	local inside = core.get_objects_inside_radius(pos, 10)
+
+	self.timer = self.timer+0.01
+
+	if self.mode == "follow" and self.visualx < 2 then
+		if self.hiss == false then
+			core.sound_play("sneeker_hiss", {pos=pos, gain=1.5, max_hear_distance=2*64})
+		end
+		self.visualx = self.visualx+0.05
+		self.object:set_properties({
+			visual_size = {x=self.visualx, y=1}
+		})
+		self.hiss = true
+	elseif self.visualx > 1 then
+		self.visualx = self.visualx-0.05
+		self.object:set_properties({
+			visual_size = {x=self.visualx, y=1}
+		})
+		self.hiss = false
+	end
+
+	--self.mode = "idle"
+
+	for  _, object in ipairs(inside) do
+		if object:is_player() then
+			self.mode = "follow"
+		end
+	end
+
+	if self.mode == "follow" then
+		local inside_2 = core.get_objects_inside_radius(pos, 2)
+
+		if #inside_2 ~= 0 then
+			for  _, object in ipairs(inside_2) do
+				if object:is_player() and object:get_hp() ~= 0 then
+					if self.visualx >= 2 then
+						self.object:remove()
+						sneeker.boom(pos, self.powered)
+						core.sound_play("sneeker_explode", {pos=pos, gain=1.5, max_hear_distance=2*64})
+						return true
+					end
+				end
+			end
+		end
+	end
+
+	--[[
 	if self.knockback then
 		return
 	end
@@ -331,8 +391,10 @@ def.on_step = function(self, dtime)
 	else
 		self.object:set_acceleration({x=0, y=-10, z=0})
 	end
+	]]
 end
 
+--[[
 def.on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, dir)
 	if self.knockback == false then
 		local knockback_level = self.knockback_level
@@ -354,15 +416,15 @@ def.on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, 
 		local obj = core.add_item(p, {name="tnt:gunpowder", count=math.random(0, 2)})
 	end
 end
+]]
 
-def.get_staticdata = function(self)
+local sneeker_get_staticdata = function(self)
 	return core.serialize({
 		powered = self.powered
 	})
 end
 
-core.register_entity(sneeker.mob_name, def)
---]]
+--core.register_entity(sneeker.mob_name, def)
 
 
 local spawn_nodes = {
@@ -399,6 +461,7 @@ cmer.register_mob({
 	modes = {
 		idle = {chance=0.3, moving_speed=0,},
 		walk = {chance=0.7, moving_speed=1.5,},
+		follow = {chance=0.0, moving_speed=1.5,},
 	},
 	model = {
 		mesh = "character.b3d",
@@ -408,6 +471,7 @@ cmer.register_mob({
 		animations = {
 			idle = {start=0, stop=79, speed=30,},
 			walk = {start=168, stop=187, speed=30,},
+			follow = {start=168, stop=187, speed=30,},
 		},
 	},
 	sounds = {},
@@ -424,6 +488,9 @@ cmer.register_mob({
 		light = {min=sneeker.spawn_minlight, max=sneeker.spawn_maxlight},
 		height_limit = {min=sneeker.spawn_minheight, max=sneeker.spawn_maxheight},
 	},
+	on_step = sneeker_on_step,
+	on_activate = sneeker_on_activate,
+	get_staticdata = sneeker_get_staticdata,
 })
 
 if core.global_exists("asm") then
