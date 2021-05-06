@@ -413,7 +413,9 @@ cmer.register_mob({
 	sounds = {},
 	drops = drops,
 	spawning = {
-		abm_nodes = spawn_nodes,
+		abm_nodes = {
+			spawn_on = spawn_nodes,
+		},
 		abm_interval = sneeker.spawn_interval,
 		abm_chance = sneeker.spawn_chance,
 		max_number = 1,
