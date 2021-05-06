@@ -11,9 +11,8 @@ Adds some explosive nuisance.
 ## License
 
 - **Code:**
-    - Original by Rui: [WTFPL][lic.wtfpl]
-    - AntumDeluge: [CC0][lic.cc0]
+    - Original by Rui: WTFPL
+    - AntumDeluge: [MIT][lic.mit]
 
 
-[lic.cc0]: LICENSE.txt
-[lic.wtfpl]: LICENSE-wtfpl.txt
+[lic.mit]: LICENSE.txt
