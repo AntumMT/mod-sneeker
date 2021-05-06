@@ -360,29 +360,16 @@ end
 
 core.register_entity(sneeker.mob_name, def)
 
-if core.global_exists("spawneggs") then
-	core.register_craftitem(sneeker.spawnegg_name, {
-		description = "Sneeker Spawn Egg",
+if core.global_exists("asm") then
+	asm.addEgg({
+		name = "sneeker",
 		inventory_image = "sneeker_spawnegg.png",
-		stack_max = 64,
-		on_place = function(itemstack,placer,pointed_thing)
-			if pointed_thing.type == "node" then
-				local pos = pointed_thing.above
-				pos.y = pos.y+1
-				core.add_entity(pos, sneeker.mob_name)
-				if not core.settings:get_bool("creative_mode", false) then
-					itemstack:take_item()
-				end
-				return itemstack
-			end
-		end
+		spawn = "sneeker:sneeker",
 	})
 
-	core.register_craft({
-		output = sneeker.spawnegg_name,
-		type = "shapeless",
-		recipe = {"spawneggs:egg", "tnt:tnt",},
-	})
+	core.register_alias(sneeker.spawnegg_name, "spawneggs:sneeker")
 
-	core.register_alias("spawneggs:sneeker", sneeker.spawnegg_name)
+	if core.registered_items["tnt:tnt"] then
+		asm.addEggRecipe("sneeker", "tnt:tnt")
+	end
 end
