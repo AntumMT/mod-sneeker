@@ -27,25 +27,23 @@ sneeker.log = function(lvl, msg)
 	end
 end
 
+sneeker.log("debug", "Debugging is on")
 
 if core.settings:get_bool("log_mods", false) then
 	core.log("action", "Loading mod \"" .. sneeker.modname .. "\" ...")
 end
 
-dofile(sneeker.modpath .. "/functions.lua")
-
-sneeker.log("debug", "Debugging is on")
-
-sneeker.mob_name = sneeker.modname .. ":" .. sneeker.modname
-sneeker.spawnegg_name = sneeker.modname .. ":spawnegg"
+sneeker.mob_name = "sneeker:sneeker"
+local old_spawnegg_name = "sneeker:spawnegg"
 
 local scripts = {
+	"functions",
 	"tnt_function",
 	"spawn",
 }
 
-for I in pairs(scripts) do
-	dofile(sneeker.modpath .. "/" .. scripts[I] .. ".lua")
+for _, script in ipairs(scripts) do
+	dofile(sneeker.modpath .. "/" .. script .. ".lua")
 end
 
 local function jump(self,pos,direction)
@@ -389,7 +387,7 @@ if core.global_exists("asm") then
 		spawn = "sneeker:sneeker",
 	})
 
-	core.register_alias(sneeker.spawnegg_name, "spawneggs:sneeker")
+	core.register_alias(old_spawnegg_name, "spawneggs:sneeker")
 
 	if core.registered_items["tnt:tnt"] then
 		asm.addEggRecipe("sneeker", "tnt:tnt")
