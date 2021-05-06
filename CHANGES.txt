@@ -3,3 +3,5 @@
 - Forked & renamed from Rui's original "creeper" mod.
 - Updated for Minetest 5.x API.
 - Ported to Creatures Revived (cmer) engine.
+- Spawn on more types of nodes.
+- Spawn on "nether:rack" if nether mod available.
