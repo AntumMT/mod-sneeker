@@ -2,16 +2,16 @@
 sneeker.spawn_cap (Sneeker maximum spawns) int 10
 
 # Sets possibility for spawn.
-sneeker.spawn_chance (Sneeker spawn chance) int 1000
+sneeker.spawn_chance (Sneeker spawn chance) int 10000
 
 # Sets frequency of spawn chance. Default 240 is equivalent to 4 minutes (60 * 4).
 sneeker.spawn_interval (Sneeker spawn interval) int 240
 
 # Sets the minimum light that a node must have for spawn to occur.
-sneeker.spawn_minlight (Sneeker min light for spawn) int -1
+sneeker.spawn_minlight (Sneeker min light for spawn) int 0
 
 # Sets the maximum light that a node can have for spawn to occur.
-sneeker.spawn_maxlight (Sneeker max light for spawn) int 4
+sneeker.spawn_maxlight (Sneeker max light for spawn) int 9
 
 # Sets the lowest position at which sneeker can spawn.
 sneeker.spawn_minheight (Sneeker min spawn height) int -31000

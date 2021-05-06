@@ -12,10 +12,10 @@ sneeker.spawn_cap = tonumber(core.settings:get("sneeker.spawn_cap")) or 10
 
 --- Sets possibility for spawn.
 --
---  Inverted value (e.g. 1000 = 1/1000).
+--  Inverted value (e.g. 10000 = 1/10000).
 --
 --  @setting sneeker.spawn_chance
-sneeker.spawn_chance = tonumber(core.settings:get("sneeker.spawn_chance")) or 1000
+sneeker.spawn_chance = tonumber(core.settings:get("sneeker.spawn_chance")) or 10000
 
 --- Sets frequency of spawn chance.
 --
@@ -26,17 +26,17 @@ sneeker.spawn_interval = tonumber(core.settings:get("sneeker.spawn_interval")) o
 
 --- Sets the minimum light that a node must have for spawn to occur.
 --
---  Default: -1
+--  Default: 0
 --
 --  @setting sneeker.spawn_minlight
-sneeker.spawn_minlight = tonumber(core.settings:get("sneeker.spawn_minlight")) or -1
+sneeker.spawn_minlight = tonumber(core.settings:get("sneeker.spawn_minlight")) or 0
 
 --- Sets the maximum light that a node can have for spawn to occur.
 --
---  Default: 4
+--  Default: 9
 --
 --  @setting sneeker.spawn_maxlight
-sneeker.spawn_maxlight = tonumber(core.settings:get("sneeker.spawn_maxlight")) or 4
+sneeker.spawn_maxlight = tonumber(core.settings:get("sneeker.spawn_maxlight")) or 9
 
 --- Sets the lowest position at which sneeker can spawn.
 --
