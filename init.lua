@@ -391,7 +391,6 @@ cmer.register_mob({
 	name = sneeker.mob_name,
 	stats = {
 		hp = 20,
-		hostile = true,
 		lifetime = 15 * 60, -- 15 minutes
 		can_jump = 5,
 		has_kockback = true,
@@ -413,17 +412,6 @@ cmer.register_mob({
 	},
 	sounds = {},
 	drops = drops,
-	combat = {
-	--[[
-		attack_damage = ,
-		attack_speed = ,
-		attack_radius = ,
-		search_enemy = true,
-		search_timer = ,
-		search_radius = ,
-		search_type = "player",
-	]]
-	},
 	spawning = {
 		abm_nodes = spawn_nodes,
 		abm_interval = sneeker.spawn_interval,
