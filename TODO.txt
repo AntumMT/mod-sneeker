@@ -1,0 +1,5 @@
+
+TODO:
+- fix walk logic to stop before exploding
+- fix sound playthrough
+- remove unused setting "sneeker.spawn_cap"

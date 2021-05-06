@@ -1,0 +1,5 @@
+
+1.0
+- Forked & renamed from Rui's original "creeper" mod.
+- Updated for Minetest 5.x API.
+- Ported to Creatures Revived (cmer) engine.
