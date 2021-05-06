@@ -512,6 +512,7 @@ cmer.register_mob({
 		idle = {chance=0.3, moving_speed=0,},
 		walk = {chance=0.7, moving_speed=1.5,},
 		follow = {chance=0.0, moving_speed=1.5,},
+		inflate = {chance=0.0, moving_speed=0,},
 	},
 	model = {
 		mesh = "character.b3d",
@@ -522,6 +523,7 @@ cmer.register_mob({
 			idle = {start=0, stop=79, speed=30,},
 			walk = {start=168, stop=187, speed=30,},
 			follow = {start=168, stop=187, speed=30,},
+			inflate = {start=0, stop=79, speed=30,},
 		},
 	},
 	sounds = {},
