@@ -146,19 +146,21 @@ local sneeker_on_activate = function(self, staticdata)
 	end
 end
 
-local sneeker_on_step = function(self, dtime)
-	-- DEBUG:
-	--core.log("Mode: " .. tostring(self.mode))
+local function isnan(n)
+	return tostring(n) == tostring((-1)^.5)
+end
 
+local sneeker_on_step = function(self, dtime)
 	if self.stunned then return false end
 
 	local pos = self.object:get_pos()
 	local inside = core.get_objects_inside_radius(pos, 10)
+	local velocity = self.object:get_velocity()
 
 	self.timer = self.timer+0.01
 
 	if self.mode == "follow" and self.visualx < 2 then
-		if self.hiss == false then
+		if not self.hiss then
 			core.sound_play("sneeker_hiss", {pos=pos, gain=1.5, max_hear_distance=2*64})
 		end
 		self.visualx = self.visualx+0.05
@@ -174,8 +176,6 @@ local sneeker_on_step = function(self, dtime)
 		self.hiss = false
 	end
 
-	--self.mode = "idle"
-
 	for  _, object in ipairs(inside) do
 		if object:is_player() then
 			self.mode = "follow"
@@ -185,6 +185,7 @@ local sneeker_on_step = function(self, dtime)
 	if self.mode == "follow" then
 		local inside_2 = core.get_objects_inside_radius(pos, 2)
 
+		-- boom
 		if #inside_2 ~= 0 then
 			for  _, object in ipairs(inside_2) do
 				if object:is_player() and object:get_hp() ~= 0 then
@@ -193,6 +194,55 @@ local sneeker_on_step = function(self, dtime)
 						sneeker.boom(pos, self.powered)
 						core.sound_play("sneeker_explode", {pos=pos, gain=1.5, max_hear_distance=2*64})
 						return true
+					end
+				end
+			end
+		end
+
+		if #inside > 0 then
+			for  _, object in ipairs(inside) do
+				if object:is_player() and object:get_hp() ~= 0 then
+					if #inside_2 > 0 then
+						for _, object in ipairs(inside_2) do
+							-- Stop move
+							if object:is_player() then
+								--[[
+								if self.anim ~= ANIM_STAND then
+									self.object:set_animation({x=animation.stand_START, y=animation.stand_END}, anim_speed, 0)
+									self.anim = ANIM_STAND
+								end
+								]]
+								--self.object:set_velocity({x=0, y=velocity.y, z=0})
+								return false
+							end
+						end
+					end
+
+					-- follow player
+					local ppos = object:get_pos()
+					self.vec = {x=ppos.x-pos.x, y=ppos.y-pos.y, z=ppos.z-pos.z}
+					self.yaw = math.atan(self.vec.z/self.vec.x)+math.pi^2
+					if ppos.x > pos.x then
+						self.yaw = self.yaw+math.pi
+					end
+					self.yaw = self.yaw-2
+					self.object:set_yaw(self.yaw)
+					self.direction = {x=math.sin(self.yaw)*-1, y=0, z=math.cos(self.yaw)}
+
+					local direction = self.direction
+					local dir_x = direction.x*2.5
+					local dir_y = velocity.y
+					local dir_z = direction.z*2.5
+
+					if not isnan(dir_x) and not isnan(dir_y) and not isnan(dir_z) then
+						self.object:set_velocity({x=direction.x*2.5, y=velocity.y, z=direction.z*2.5})
+					else
+						sneeker.log("warning", "Found NaN")
+						for k, v in ipairs({x=dir_x, y=dir_y, z=dir_z}) do
+							if isnan(v) then
+								sneeker.log("warning", "\"" .. k .. "\" is not a number: " .. tostring(v))
+							end
+						end
 					end
 				end
 			end
