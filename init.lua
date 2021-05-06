@@ -405,6 +405,7 @@ cmer.register_mob({
 		mesh = "character.b3d",
 		textures = {"sneeker.png"},
 		collisionbox = {-0.25, -0.7, -0.25, 0.25, 0.8, 0.25},
+		rotation = 270.0,
 		animations = {
 			idle = {start=0, stop=79, speed=30,},
 			walk = {start=168, stop=187, speed=30,},
