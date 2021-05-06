@@ -379,6 +379,13 @@ if core.global_exists("nether") then
 	table.insert(spawn_nodes, "nether:rack")
 end
 
+local drops = nil
+if core.global_exists("tnt") then
+	drops = {
+		{"tnt:gunpowder", {min=1, max=2}, chance=0.66},
+	}
+end
+
 
 cmer.register_mob({
 	name = sneeker.mob_name,
@@ -404,9 +411,7 @@ cmer.register_mob({
 		},
 	},
 	sounds = {},
-	drops = {
-		{"tnt:gunpowder", {min=1, max=2}, chance=0.66},
-	},
+	drops = drops,
 	combat = {
 	--[[
 		attack_damage = ,
