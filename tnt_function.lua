@@ -1,5 +1,3 @@
--- Original code by Rui: WTFPL
-
 
 -- From TNT
 local cid_data = {}
@@ -187,7 +185,7 @@ local function explode(pos, radius)
 	return drops
 end
 
-function sneeker.boom(pos,large)
+function sneeker.boom(pos, large)
 	local radius = radius
 	if large then
 		radius = large_radius

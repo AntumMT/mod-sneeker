@@ -1,5 +1,3 @@
--- Original code by Rui: WTFPL
-
 
 local time_hr = sneeker.time_min * 60
 local time_day = time_hr * 24

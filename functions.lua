@@ -9,5 +9,5 @@ end
 
 -- Retrieves pos coordinates in string value
 function sneeker.get_pos_string(pos)
-	return 'x=' .. tostring(pos.x) .. ', y=' .. tostring(pos.y) .. ', z=' .. tostring(pos.z)
+	return "x=" .. tostring(pos.x) .. ", y=" .. tostring(pos.y) .. ", z=" .. tostring(pos.z)
 end
