@@ -101,6 +101,11 @@ def.on_activate = function(self,staticdata)
 	end
 end
 
+
+local function isnan(n)
+	return tostring(n) == tostring((-1)^.5)
+end
+
 def.on_step = function(self, dtime)
 	if self.knockback then
 		return
@@ -267,7 +272,19 @@ def.on_step = function(self, dtime)
 					self.direction = {x=math.sin(self.yaw)*-1,y=0,z=math.cos(self.yaw)}
 
 					local direction = self.direction
-					self.object:set_velocity({x=direction.x*2.5,y=velocity.y,z=direction.z*2.5})
+
+					-- FIXME: hack
+					local can_set = true
+					for _, c in ipairs({direction.x*2.5, direction.z*2.5}) do
+						if isnan(c) then
+							can_set = false
+							break
+						end
+					end
+
+					if can_set then
+						self.object:set_velocity({x=direction.x*2.5,y=velocity.y,z=direction.z*2.5})
+					end
 
 					-- Jump
 					if self.jump_timer > 0.2 then
