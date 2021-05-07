@@ -14,7 +14,7 @@ local function jump(self,pos,direction)
 		self.object:setvelocity({x=velocity.x,y=4,z=velocity.z})
 		return
 	end
-	
+
 	local spos = {x=pos.x+direction.x,y=pos.y,z=pos.z+direction.z}
 	local node = minetest.get_node_or_nil(spos)
 	spos.y = spos.y+1
@@ -86,7 +86,7 @@ def.on_activate = function(self,staticdata)
 	self.knockback = false
 	self.state = math.random(1,2)
 	self.old_y = self.object:getpos().y
-	
+
 	local data = minetest.deserialize(staticdata)
 	if data and type(data) == "table" then
 		if data.powered == true then
@@ -105,10 +105,10 @@ def.on_step = function(self, dtime)
 	if self.knockback then
 		return
 	end
-	
+
 	local ANIM_STAND = 1
 	local ANIM_WALK  = 2
-	
+
 	local pos = self.object:getpos()
 	local yaw = self.object:getyaw()
 	local inside = minetest.get_objects_inside_radius(pos,10)
@@ -116,11 +116,11 @@ def.on_step = function(self, dtime)
 	local animation = self.animation
 	local anim_speed = self.animation_speed
 	local velocity = self.object:getvelocity()
-	
+
 	self.timer = self.timer+0.01
 	self.turn_timer = self.turn_timer+0.01
 	self.jump_timer = self.jump_timer+0.01
-	
+
 	if not self.chase
 	and self.timer > math.random(2,5) then
 		if math.random() > 0.8 then
@@ -138,7 +138,7 @@ def.on_step = function(self, dtime)
 		self.yaw = self.yaw-self.turn_speed
 		self.object:setyaw(self.yaw)
 	end
-	
+
 	if self.chase and self.visualx < 2 then
 		if self.hiss == false then
 			minetest.sound_play("creeper_hiss",{pos=pos,gain=1.5,max_hear_distance=2*64})
@@ -155,9 +155,9 @@ def.on_step = function(self, dtime)
 		})
 		self.hiss = false
 	end
-	
+
 	self.chase = false
-	
+
 	for  _,object in ipairs(inside) do
 		if object:is_player() then
 			self.state = "chase"
@@ -169,9 +169,9 @@ def.on_step = function(self, dtime)
 			self.object:set_animation({x=animation.stand_START,y=animation.stand_END},anim_speed,0)
 			self.anim = ANIM_STAND
 		end
-		
+
 		random_turn(self)
-		
+
 		if velocity.x ~= 0
 		or velocity.z ~= 0 then
 			self.object:setvelocity({x=0,y=velocity.y,z=0})
@@ -183,16 +183,16 @@ def.on_step = function(self, dtime)
 			self.object:set_animation({x=animation.walk_START,y=animation.walk_END},anim_speed,0)
 			self.anim = ANIM_WALK
 		end
-		
+
 		self.direction = {x=math.sin(yaw)*-1,y=-10,z=math.cos(yaw)}
 		if self.direction then
 			self.object:setvelocity({x=self.direction.x*walk_speed,y=velocity.y,z=self.direction.z*walk_speed})
 		end
-		
+
 		random_turn(self)
 
 		local velocity = self.object:getvelocity()
-		
+
 		if self.turn_timer > 1 then
 			local direction = self.direction
 			local npos = {x=pos.x+direction.x,y=pos.y+0.2,z=pos.z+direction.z}
@@ -208,23 +208,23 @@ def.on_step = function(self, dtime)
 				self.turn_speed = 0.05*math.random()
 			end
 		end
-		
+
 		-- Jump
 		if self.jump_timer > 0.2 then
 			jump(self,pos,self.direction)
 		end
 	end
-	
+
 	if self.state == "chase" then
 		if self.anim ~= ANIM_WALK then
 			self.object:set_animation({x=animation.walk_START,y=animation.walk_END},anim_speed,0)
 			self.anim = ANIM_WALK
 		end
-		
+
 		self.turn = "straight"
-		
+
 		local inside_2 = minetest.get_objects_inside_radius(pos,2)
-		
+
 		-- Boom
 		if #inside_2 ~= 0 then
 			for  _,object in ipairs(inside_2) do
@@ -238,7 +238,7 @@ def.on_step = function(self, dtime)
 				end
 			end
 		end
-		
+
 		if #inside ~= 0 then
 			for  _,object in ipairs(inside) do
 				if object:is_player() and object:get_hp() ~= 0 then
@@ -255,7 +255,7 @@ def.on_step = function(self, dtime)
 							end
 						end
 					end
-				
+
 					local ppos = object:getpos()
 					self.vec = {x=ppos.x-pos.x,y=ppos.y-pos.y,z=ppos.z-pos.z}
 					self.yaw = math.atan(self.vec.z/self.vec.x)+math.pi^2
@@ -265,7 +265,7 @@ def.on_step = function(self, dtime)
 					self.yaw = self.yaw-2
 					self.object:setyaw(self.yaw)
 					self.direction = {x=math.sin(self.yaw)*-1,y=0,z=math.cos(self.yaw)}
-				
+
 					local direction = self.direction
 					self.object:setvelocity({x=direction.x*2.5,y=velocity.y,z=direction.z*2.5})
 
@@ -279,7 +279,7 @@ def.on_step = function(self, dtime)
 			self.state = "stand"
 		end
 	end
-	
+
 	-- Swim
 	local node = minetest.get_node(pos)
 	if minetest.get_item_group(node.name,"water") ~= 0 then
