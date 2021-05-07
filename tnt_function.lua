@@ -147,7 +147,11 @@ local function explode(pos, radius)
 	local p = {}
 
 	local c_air = minetest.get_content_id("air")
-	local c_tnt = minetest.get_content_id("tnt:tnt")
+	local c_tnt = nil
+	if minetest.settings:get_bool("enable_tnt", false) then
+		c_tnt = minetest.get_content_id("tnt:tnt")
+	end
+
 	local c_tnt_burning = minetest.get_content_id("tnt:tnt_burning")
 	local c_gunpowder = minetest.get_content_id("tnt:gunpowder")
 	local c_gunpowder_burning = minetest.get_content_id("tnt:gunpowder_burning")
