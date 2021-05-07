@@ -26,8 +26,13 @@ sneeker.log("Spawn chance: " .. spawn_chance_percent)
 sneeker.log("Spawn interval: " .. tostring(spawn_interval) .. " (" .. tostring(spawn_interval/60) .. " minute(s))")
 sneeker.log("Maximum light value for spawn: " .. tostring(spawn_maxlight))
 
+local spawn_nodes = {"default:dirt_with_grass", "default:stone"}
+if core.global_exists("nether") then
+	table.insert(spawn_nodes, "nether:rack")
+end
+
 core.register_abm({
-	nodenames = {"default:dirt_with_grass", "default:stone"},
+	nodenames = spawn_nodes,
 	neighbors = {"air"},
 	interval = spawn_interval,
 	chance = spawn_chance,
