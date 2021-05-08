@@ -1,4 +1,7 @@
 
+# Extra debugging messages.
+enable_debug_mods (Mod debugging) bool false
+
 # Sets possibility for spawn.
 #
 # Rate is the inverted value (e.g. 1/value).

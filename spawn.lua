@@ -10,6 +10,12 @@ if core.global_exists("nether") then
 	table.insert(spawn_nodes, "nether:rack")
 end
 
+for _, node_name in ipairs(spawn_nodes) do
+	if not core.registered_nodes[node_name] then
+		sneeker.log("warning", "Invalid node for spawn: " .. node_name)
+	end
+end
+
 
 core.register_abm({
 	nodenames = spawn_nodes,
@@ -40,6 +46,12 @@ core.register_abm({
 			return
 		end
 
-		core.add_entity(pos, "sneeker:sneeker")
+		local spawned = core.add_entity(pos, "sneeker:sneeker")
+		if not spawned then
+			sneeker.log("warning", "Failed to spawn at: "
+				.. tostring(math.floor(pos.x))
+				.. "," .. tostring(math.floor(pos.y))
+				.. "," .. tostring(math.floor(pos.z)))
+		end
 	end
 })
