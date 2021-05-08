@@ -1,7 +1,9 @@
 
 local spawn_nodes = {
-	"default:dirt_with_grass",
-	"default:stone",
+	"default:dirt_with_dry_grass",
+	"default:dry_dirt",
+	"default:dry_dirt_with_dry_grass",
+	"default:desert_sand",
 }
 
 if core.global_exists("nether") then
