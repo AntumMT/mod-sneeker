@@ -1,8 +1,17 @@
 
 sneeker = {}
+sneeker.modname = core.get_current_modname()
+sneeker.modpath = core.get_modpath(sneeker.modname)
 
-dofile(minetest.get_modpath("sneeker").."/tnt_function.lua")
-dofile(minetest.get_modpath("sneeker").."/spawn.lua")
+local scripts = {
+	"settings",
+	"tnt_function",
+	"spawn",
+}
+
+for _, script in ipairs(scripts) do
+	dofile(sneeker.modpath .. "/" .. script .. ".lua")
+end
 
 
 local function jump(self, pos, direction)
