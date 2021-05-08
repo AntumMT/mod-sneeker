@@ -10,8 +10,9 @@ An explosive nuisance for [Minetest](http://minetest.net/).
 ---
 ### Licensing:
 
-- **Code:** [MIT](LICENSE.txt)
-    - Original by Rui: WTFPL
+- Code: [MIT](LICENSE.txt)
+  - Original by Rui: WTFPL
+- tnt_function code: [MIT](tnt_function.lua)
 
 ---
 ### Links:
