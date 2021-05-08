@@ -1,5 +1,6 @@
-minetest.register_abm({
-	nodenames = {"default:dirt_with_grass","default:stone"},
+
+core.register_abm({
+	nodenames = {"default:dirt_with_grass", "default:stone"},
 	neighbors = {"air"},
 	interval = 30,
 	chance = 9000,
@@ -8,25 +9,25 @@ minetest.register_abm({
 			return
 		end
 		pos.y = pos.y+1
-		if not minetest.get_node_light(pos) then
+		if not core.get_node_light(pos) then
 			return
 		end
-		if minetest.get_node_light(pos) > 5 then
+		if core.get_node_light(pos) > 5 then
 			return
 		end
-		if minetest.get_node_light(pos) < -1 then
+		if core.get_node_light(pos) < -1 then
 			return
 		end
 		if pos.y > 31000 then
 			return
 		end
-		if minetest.get_node(pos).name ~= "air" then
+		if core.get_node(pos).name ~= "air" then
 			return
 		end
 		pos.y = pos.y+1
-		if minetest.get_node(pos).name ~= "air" then
+		if core.get_node(pos).name ~= "air" then
 			return
 		end
-		minetest.add_entity(pos,"sneeker:sneeker")
+		core.add_entity(pos, "sneeker:sneeker")
 	end
 })

@@ -1,14 +1,15 @@
 -- From TNT
+
 local cid_data = {}
-local radius = tonumber(minetest.setting_get("tnt_radius") or 3)
+local radius = tonumber(core.setting_get("tnt_radius") or 3)
 local large_radius = 5
 local loss_prob = {
 	["default:cobble"] = 3,
 	["default:dirt"] = 4,
 }
-minetest.after(0, function()
-	for name, def in pairs(minetest.registered_nodes) do
-		cid_data[minetest.get_content_id(name)] = {
+core.after(0, function()
+	for name, def in pairs(core.registered_nodes) do
+		cid_data[core.get_content_id(name)] = {
 			name = name,
 			drops = def.drops,
 			flammable = def.groups.flammable,
@@ -34,7 +35,7 @@ local function eject_drops(drops, pos, radius)
 				item:set_count(count)
 			end
 			rand_pos(pos, drop_pos, radius)
-			local obj = minetest.add_item(drop_pos, item)
+			local obj = core.add_item(drop_pos, item)
 			if obj then
 				obj:get_luaentity().collect = true
 				obj:set_acceleration({x=0, y=-10, z=0})
@@ -62,7 +63,7 @@ local function add_drop(drops, item)
 end
 
 local function destroy(drops, pos, cid)
-	if minetest.is_protected(pos, "") then
+	if core.is_protected(pos, "") then
 		return
 	end
 	local def = cid_data[cid]
@@ -70,9 +71,9 @@ local function destroy(drops, pos, cid)
 		def.on_blast(vector.new(pos), 1)
 		return
 	end
-	minetest.remove_node(pos)
+	core.remove_node(pos)
 	if def then
-		local node_drops = minetest.get_node_drops(def.name, "")
+		local node_drops = core.get_node_drops(def.name, "")
 		for _, item in ipairs(node_drops) do
 			add_drop(drops, item)
 		end
@@ -98,7 +99,7 @@ end
 local function entity_physics(pos, radius)
 	-- Make the damage radius larger than the destruction radius
 	radius = radius * 2
-	local objs = minetest.get_objects_inside_radius(pos, radius)
+	local objs = core.get_objects_inside_radius(pos, radius)
 	for _, obj in pairs(objs) do
 		local obj_pos = obj:get_pos()
 		local obj_vel = obj:get_velocity()
@@ -115,7 +116,7 @@ local function entity_physics(pos, radius)
 end
 
 local function add_effects(pos, radius)
-	minetest.add_particlespawner({
+	core.add_particlespawner({
 		amount = 128,
 		time = 1,
 		minpos = vector.subtract(pos, radius / 2),
@@ -146,16 +147,16 @@ local function explode(pos, radius)
 	local drops = {}
 	local p = {}
 
-	local c_air = minetest.get_content_id("air")
+	local c_air = core.get_content_id("air")
 	local c_tnt = nil
-	if minetest.settings:get_bool("enable_tnt", false) then
-		c_tnt = minetest.get_content_id("tnt:tnt")
+	if core.settings:get_bool("enable_tnt", false) then
+		c_tnt = core.get_content_id("tnt:tnt")
 	end
 
-	local c_tnt_burning = minetest.get_content_id("tnt:tnt_burning")
-	local c_gunpowder = minetest.get_content_id("tnt:gunpowder")
-	local c_gunpowder_burning = minetest.get_content_id("tnt:gunpowder_burning")
-	local c_boom = minetest.get_content_id("tnt:boom")
+	local c_tnt_burning = core.get_content_id("tnt:tnt_burning")
+	local c_gunpowder = core.get_content_id("tnt:gunpowder")
+	local c_gunpowder_burning = core.get_content_id("tnt:gunpowder_burning")
+	local c_boom = core.get_content_id("tnt:boom")
 
 	for z = -radius, radius do
 	for y = -radius, radius do
@@ -184,14 +185,14 @@ local function explode(pos, radius)
 	return drops
 end
 
-function sneeker.boom(pos,large)
+function sneeker.boom(pos, large)
 	local radius = radius
 	if large then
 		radius = large_radius
 	end
-	minetest.sound_play("sneeker_explode", {pos=pos, gain=1.5, max_hear_distance=2*64})
-	minetest.set_node(pos, {name="tnt:boom"})
-	minetest.get_node_timer(pos):start(0.5)
+	core.sound_play("sneeker_explode", {pos=pos, gain=1.5, max_hear_distance=2*64})
+	core.set_node(pos, {name="tnt:boom"})
+	core.get_node_timer(pos):start(0.5)
 	local drops = explode(pos, radius)
 	entity_physics(pos, radius)
 	eject_drops(drops, pos, radius)
