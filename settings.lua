@@ -3,6 +3,13 @@
 
 local time_min = 60
 
+--- How long (in seconds) sneeker remains in world after spawn.
+--
+--  Default: 15 minutes
+--
+--  @setting sneeker.lifespan
+sneeker.lifetime = tonumber(core.settings:get("sneeker.lifetime") or time_min * 15)
+
 --- Loudness of explosion.
 --
 --  @setting sneeker.boom_gain

@@ -2,6 +2,11 @@
 # Extra debugging messages.
 enable_debug_mods (Mod debugging) bool false
 
+# How long (in seconds) sneeker remains in world after spawn.
+#
+# Default: 900 (15 minutes)
+sneeker.lifetime (Sneeker lifetime) int 900
+
 # Loudness of explosion.
 #
 # Those with a weak heart might want to turn it down.

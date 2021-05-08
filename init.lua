@@ -114,6 +114,8 @@ def.on_activate = function(self, staticdata)
 	self.knockback = false
 	self.state = math.random(1, 2)
 	self.old_y = self.object:get_pos().y
+	self.lifetime = sneeker.lifetime
+	self.lifetimer = 0
 
 	local data = core.deserialize(staticdata)
 	if data and type(data) == "table" then
@@ -135,8 +137,17 @@ local function isnan(n)
 end
 
 def.on_step = function(self, dtime)
+	-- update lifetime timer
+	-- FIXME: this is longer than realtime
+	self.lifetimer = self.lifetimer + dtime
+	if self.lifetimer >= self.lifetime then
+		-- TODO: should have a death animation
+		self.object:remove()
+		return true
+	end
+
 	if self.knockback then
-		return
+		return false
 	end
 
 	local ANIM_STAND = 1
@@ -339,6 +350,8 @@ def.on_step = function(self, dtime)
 	else
 		self.object:set_acceleration({x=0, y=-10, z=0})
 	end
+
+	return true
 end
 
 def.on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, dir)
