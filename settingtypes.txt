@@ -2,6 +2,14 @@
 # Extra debugging messages.
 enable_debug_mods (Mod debugging) bool false
 
+# Determines whether or not a player must be close for spawn to occur.
+sneeker.spawn_require_player_nearby (Require player nearby) bool true
+
+# Distance in nodes a player must be for spawn to occur.
+#
+# Only used if `sneeker.spawn_require_player_nearby` enabled.
+sneeker.spawn_player_radius (Player detect radius) int 100
+
 # Sets possibility for spawn.
 #
 # Rate is the inverted value (e.g. 1/value).

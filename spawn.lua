@@ -28,6 +28,22 @@ core.register_abm({
 		-- check above target node
 		pos.y = pos.y+1
 
+		local pos_string = tostring(math.floor(pos.x))
+			.. "," .. tostring(math.floor(pos.y))
+			.. "," .. tostring(math.floor(pos.z))
+
+		if sneeker.spawn_require_player_nearby then
+			local player_nearby = false
+			for _, entity in ipairs(core.get_objects_inside_radius(pos, sneeker.spawn_player_radius)) do
+				if entity:is_player() then
+					player_nearby = true
+					break
+				end
+			end
+
+			if not player_nearby then return end
+		end
+
 		if pos.y > sneeker.spawn_maxheight or pos.y < sneeker.spawn_minheight then
 			return
 		end
@@ -46,15 +62,9 @@ core.register_abm({
 
 		local spawned = core.add_entity(pos, "sneeker:sneeker")
 		if not spawned then
-			sneeker.log("warning", "Failed to spawn at: "
-				.. tostring(math.floor(pos.x))
-				.. "," .. tostring(math.floor(pos.y))
-				.. "," .. tostring(math.floor(pos.z)))
+			sneeker.log("warning", "Failed to spawn at: " .. pos_string)
 		else
-			sneeker.log("debug", "Spawned at: "
-				.. tostring(math.floor(pos.x))
-				.. "," .. tostring(math.floor(pos.y))
-				.. "," .. tostring(math.floor(pos.z)))
+			sneeker.log("debug", "Spawned at: " .. pos_string)
 		end
 	end
 })

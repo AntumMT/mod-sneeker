@@ -3,6 +3,18 @@
 
 local time_min = 60
 
+--- Determines whether or not a player must be close for spawn to occur.
+--
+--  @setting sneeker.spawn_require_player_nearby
+sneeker.spawn_require_player_nearby = core.settings:get_bool("sneeker.spawn_require_player_nearby", true)
+
+--- Distance in nodes a player must be for spawn to occur.
+--
+--  Only used if `sneeker.spawn_require_player_nearby` enabled.
+--
+--  @setting sneeker.spawn_player_radius
+sneeker.spawn_player_radius = tonumber(core.settings:get("sneeker.spawn_player_radius") or 100)
+
 --- Sets possibility for spawn.
 --
 --  Inverted value (e.g. 10000 = 1/10000).
