@@ -50,6 +50,11 @@ core.register_abm({
 				.. tostring(math.floor(pos.x))
 				.. "," .. tostring(math.floor(pos.y))
 				.. "," .. tostring(math.floor(pos.z)))
+		else
+			sneeker.log("debug", "Spawned at: "
+				.. tostring(math.floor(pos.x))
+				.. "," .. tostring(math.floor(pos.y))
+				.. "," .. tostring(math.floor(pos.z)))
 		end
 	end
 })
