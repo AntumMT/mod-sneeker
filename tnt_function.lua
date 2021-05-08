@@ -1,7 +1,7 @@
 -- From TNT
 
 local cid_data = {}
-local radius = tonumber(core.setting_get("tnt_radius") or 3)
+local radius = tonumber(core.settings:get("tnt_radius") or 3)
 local large_radius = 5
 local loss_prob = {
 	["default:cobble"] = 3,

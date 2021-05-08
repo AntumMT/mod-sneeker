@@ -348,7 +348,7 @@ core.register_craftitem("sneeker:spawnegg", {
 			local pos = pointed_thing.above
 			pos.y = pos.y+1
 			core.add_entity(pos, "sneeker:sneeker")
-			if not core.setting_getbool("creative_mode") then
+			if not core.settings:get_bool("creative_mode", false) then
 				itemstack:take_item()
 			end
 			return itemstack
