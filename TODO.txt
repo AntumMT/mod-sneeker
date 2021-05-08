@@ -1,0 +1,4 @@
+
+TODO:
+- check for nearbly players before spawning
+- add lifetime limit
