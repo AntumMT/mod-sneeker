@@ -1,6 +1,16 @@
 
+local spawn_nodes = {
+	"default:dirt_with_grass",
+	"default:stone",
+}
+
+if core.global_exists("nether") then
+	table.insert(spawn_nodes, "nether:rack")
+end
+
+
 core.register_abm({
-	nodenames = {"default:dirt_with_grass", "default:stone"},
+	nodenames = spawn_nodes,
 	neighbors = {"air"},
 	interval = 30,
 	chance = 9000,
