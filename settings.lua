@@ -3,6 +3,11 @@
 
 local time_min = 60
 
+--- Loudness of explosion.
+--
+--  @setting sneeker.boom_gain
+sneeker.boom_gain = tonumber(core.settings:get("sneeker.boom_gain") or 1.5)
+
 --- Determines whether or not a player must be close for spawn to occur.
 --
 --  @setting sneeker.spawn_require_player_nearby

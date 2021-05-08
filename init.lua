@@ -266,7 +266,8 @@ def.on_step = function(self, dtime)
 					if self.visualx >= 2 then
 						self.object:remove()
 						sneeker.boom(pos, self.powered)
-						core.sound_play("sneeker_explode", {pos=pos, gain=1.5, max_hear_distance=2*64})
+						core.sound_play("sneeker_explode", {pos=pos, gain=sneeker.boom_gain, max_hear_distance=2*64})
+						return true
 					end
 				end
 			end

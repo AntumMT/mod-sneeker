@@ -2,6 +2,11 @@
 # Extra debugging messages.
 enable_debug_mods (Mod debugging) bool false
 
+# Loudness of explosion.
+#
+# Those with a weak heart might want to turn it down.
+sneeker.boom_gain (Boom volume) float 1.5
+
 # Determines whether or not a player must be close for spawn to occur.
 sneeker.spawn_require_player_nearby (Require player nearby) bool true
 
