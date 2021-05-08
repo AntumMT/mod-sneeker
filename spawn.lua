@@ -27,6 +27,6 @@ minetest.register_abm({
 		if minetest.get_node(pos).name ~= "air" then
 			return
 		end
-		minetest.add_entity(pos,"creeper:creeper")
+		minetest.add_entity(pos,"sneeker:sneeker")
 	end
 })

@@ -1,4 +1,4 @@
-## Creeper mod for Minetest
+## Sneeker mod for Minetest
 
 ---
 ### Description:
