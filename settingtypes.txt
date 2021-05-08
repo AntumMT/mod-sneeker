@@ -21,3 +21,6 @@ sneeker.spawn_minheight (Sneeker min spawn height) int -31000
 
 # Sets the highest position at which sneeker can spawn.
 sneeker.spawn_maxheight (Sneeker max spawn height) int 31000
+
+# Limits the number of entities that can spawn per mapblock (16x16x16).
+sneeker.spawn_mapblock_limit (Sneeker spawn limit) int 1

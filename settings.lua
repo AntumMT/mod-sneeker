@@ -44,3 +44,8 @@ sneeker.spawn_minheight = tonumber(core.settings:get("sneeker.spawn_minheight") 
 --
 --  @setting sneeker.spawn_maxheight
 sneeker.spawn_maxheight = tonumber(core.settings:get("sneeker.spawn_maxheight") or 31000)
+
+--- Limits the number of entities that can spawn per mapblock (16x16x16).
+--
+--  Default: 1
+sneeker.spawn_mapblock_limit = tonumber(core.settings:get("sneeker.spawn_mapblock_limit") or 1)

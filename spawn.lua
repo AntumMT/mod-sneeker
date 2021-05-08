@@ -22,15 +22,13 @@ core.register_abm({
 	neighbors = {"air"},
 	interval = sneeker.spawn_interval,
 	chance = sneeker.spawn_chance,
-	action = function(pos, node, _, active_object_count_wider)
-		if active_object_count_wider > 5 then
-			return
-		end
+	action = function(pos, node, aoc, aocw)
+		if aoc >= sneeker.spawn_mapblock_limit then return end
 
-		if pos.y > sneeker.spawn_maxheight then
-			return
-		end
-		if pos.y < sneeker.spawn_minheight then
+		-- check above target node
+		pos.y = pos.y+1
+
+		if pos.y > sneeker.spawn_maxheight or pos.y < sneeker.spawn_minheight then
 			return
 		end
 
