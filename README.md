@@ -1,8 +1,21 @@
-# creeper
-Adds some explosive nuisance.
+## Creeper mod for Minetest
 
-## Forum Topic
-- https://forum.minetest.net/viewtopic.php?t=11891
+---
+### Description:
 
-## License
-- **Code:** WTFPL
+An explosive nuisance for [Minetest](http://minetest.net/).
+
+![screenshot](screenshot.png)
+
+---
+### Licensing:
+
+- **Code:** [MIT](LICENSE.txt)
+    - Original by Rui: WTFPL
+
+---
+### Links:
+
+- [Forum thread](https://forum.minetest.net/viewtopic.php?t=26685)
+- [Git repo](https://github.com/AntumMT/mod-sneeker)
+- [Original forum thread](https://forum.minetest.net/viewtopic.php?t=11891)
