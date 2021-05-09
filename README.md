@@ -75,5 +75,8 @@ Settings:
 ### Links:
 
 - [Forum thread](https://forum.minetest.net/viewtopic.php?t=26685)
-- [Git repo](https://github.com/AntumMT/mod-sneeker)
 - [Original forum thread](https://forum.minetest.net/viewtopic.php?t=11891)
+- [Git repo](https://github.com/AntumMT/mod-sneeker)
+- [Reference](https://antummt.github.io/mod-sneeker/docs/api.html)
+- [Changelog](CHANGES.txt)
+- [TODO](TODO.txt)
