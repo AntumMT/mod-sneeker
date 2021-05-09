@@ -13,12 +13,20 @@ sneeker.lifetime (Sneeker lifetime) int 900
 sneeker.boom_gain (Boom volume) float 1.5
 
 # Determines whether or not a player must be close for spawn to occur.
-sneeker.spawn_require_player_nearby (Require player nearby) bool true
+sneeker.spawn_require_player_nearby (Require player nearby for spawn) bool true
 
 # Distance in nodes a player must be for spawn to occur.
 #
 # Only used if `sneeker.spawn_require_player_nearby` enabled.
-sneeker.spawn_player_radius (Player detect radius) int 100
+sneeker.spawn_player_radius (Player spawn detect radius) int 100
+
+# If enabled, mobs not near any players will despawn.
+sneeker.despawn_player_far (Despawn sneekers not near players) bool true
+
+# Distance determining if a player is near enough to prevent despawn.
+#
+# Only used if `sneeker.despawn_player_far` enabled.
+sneeker.despawn_player_radius (Player despawn detect radius) int 500
 
 # Sets possibility for spawn.
 #

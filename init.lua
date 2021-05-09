@@ -114,8 +114,11 @@ def.on_activate = function(self, staticdata)
 	self.knockback = false
 	self.state = math.random(1, 2)
 	self.old_y = self.object:get_pos().y
+
+	-- despawning
 	self.lifetime = sneeker.lifetime
 	self.lifetimer = 0
+	self.check_despawn_player_distance = true
 
 	local data = core.deserialize(staticdata)
 	if data and type(data) == "table" then
@@ -154,6 +157,33 @@ def.on_step = function(self, dtime)
 	local ANIM_WALK  = 2
 
 	local pos = self.object:get_pos()
+
+	if sneeker.despawn_player_far then
+		-- run check about once per 60 seconds
+		local interval_reached = math.floor(self.lifetimer % 60) == 0
+		if not interval_reached and not self.check_despawn_player_distance then
+			self.check_despawn_player_distance = true
+		end
+
+		if interval_reached and self.check_despawn_player_distance then
+			local player_nearby = false
+			for _, entity in ipairs(core.get_objects_inside_radius(pos, sneeker.despawn_player_radius)) do
+				if entity:is_player() then
+					player_nearby = true
+					break
+				end
+			end
+
+			if not player_nearby then
+				self.object:remove()
+				return true
+			end
+
+			-- set flag to not check again until next interval
+			self.check_despawn_player_distance = false
+		end
+	end
+
 	local yaw = self.object:get_yaw()
 	local inside = core.get_objects_inside_radius(pos, 10)
 	local walk_speed = self.walk_speed

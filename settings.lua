@@ -27,6 +27,18 @@ sneeker.spawn_require_player_nearby = core.settings:get_bool("sneeker.spawn_requ
 --  @setting sneeker.spawn_player_radius
 sneeker.spawn_player_radius = tonumber(core.settings:get("sneeker.spawn_player_radius") or 100)
 
+--- If enabled, mobs not near any players will despawn.
+--
+--  @setting sneeker.despawn_player_far
+sneeker.despawn_player_far = core.settings:get_bool("sneeker.despawn_player_far", true)
+
+--- Distance determining if a player is near enough to prevent despawn.
+--
+--  Only used if `sneeker.despawn_player_far` enabled.
+--
+--  @setting sneeker.despawn_player_radius
+sneeker.despawn_player_radius = tonumber(core.settings:get("sneeker.despawn_player_radius") or 500)
+
 --- Sets possibility for spawn.
 --
 --  Inverted value (e.g. 10000 = 1/10000).
