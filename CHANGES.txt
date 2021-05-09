@@ -9,3 +9,4 @@
   - default:dry_dirt_with_dry_grass
   - default:desert_sand
 - Spawns on "nether:rack" if nether mod available.
+- Spawning attributes can now be set in configuration file.
