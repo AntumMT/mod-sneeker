@@ -1,8 +1,9 @@
 
-local sounds_enabled = core.get_modpath("sounds") ~= nil
 local hit_sound
 
-if sounds_enabled then
+if core.get_modpath("default") then
+	hit_sound = "player_damage"
+elseif core.get_modpath("sounds") then
 	hit_sound = "sounds_entity_hit"
 end
 
