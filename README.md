@@ -18,7 +18,7 @@ Settings documented in [reference][].
 
 ### Requirements:
 
-- Depends: default, tnt
+- Depends: cmer, default, tnt
 - Optional depends: nether, sounds, simple_protection
 
 ### Links:
