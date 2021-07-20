@@ -54,7 +54,7 @@ end
 local def = {
 	hp_max = 20,
 	physical = true,
-	collisionbox = {-0.25, -0.7, -0.25, 0.25, 0.8, 0.25},
+	collisionbox = {-0.25, 0.3, -0.25, 0.25, 1.8, 0.25},
 	visual = "mesh",
 	mesh = "character.b3d",
 	textures = {"sneeker.png"},
