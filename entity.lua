@@ -191,8 +191,7 @@ def.on_step = function(self, dtime)
 	self.turn_timer = self.turn_timer+0.01
 	self.jump_timer = self.jump_timer+0.01
 
-	if not self.chase
-	and self.timer > math.random(2, 5) then
+	if not self.chase and self.timer > math.random(2, 5) then
 		if math.random() > 0.8 then
 			self.state = "stand"
 		else
