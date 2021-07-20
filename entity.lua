@@ -7,7 +7,7 @@ elseif core.get_modpath("sounds") then
 	hit_sound = "sounds_entity_hit"
 end
 
-
+--[[
 local function jump(self, pos, direction)
 	local velocity = self.object:get_velocity()
 	if core.registered_nodes[core.get_node(pos).name].climbable then
@@ -75,24 +75,100 @@ local def = {
 	animation_speed = 30,
 	knockback_level = 2
 }
+]]
 
-def.on_activate = function(self, staticdata)
+local spawn_nodes = {}
+if sneeker.spawn_nodes ~= "" then
+	if not sneeker.spawn_nodes:find(",") then
+		table.insert(spawn_nodes, sneeker.spawn_nodes)
+	else
+		for _, node in ipairs(sneeker.spawn_nodes:split(",")) do
+			local node = node:trim()
+			if node ~= "" then
+				table.insert(spawn_nodes, node)
+			end
+		end
+	end
+end
+
+if #spawn_nodes == 0 then
+	sneeker.log("warning", "no spawning nodes set, cannot spawn")
+end
+
+local def = {
+	name = "sneeker:sneeker",
+	nametag = "Sneeker",
+	stats = {
+		hp = 20,
+		hostile_2 = true,
+		lifetime = sneeker.lifetime,
+		can_jump = 5,
+		can_swim = true,
+		has_knockback = true,
+		sneaky = true,
+	},
+	modes = {
+		idle = {chance=0.3},
+		walk = {chance=0.7, moving_speed=1.5},
+		follow = {radius=10},
+		--death = {},
+	},
+	model = {
+		mesh = "character.b3d",
+		textures = {"sneeker.png"},
+		collisionbox = {-0.25, -0.7, -0.25, 0.25, 0.8, 0.25},
+		rotation = -90,
+		animations = {
+			idle = {start=0, stop=79, speed=30},
+			walk = {start=168, stop=187, speed=30},
+			follow = {start=168, stop=187, speed=30},
+			--death = {},
+		},
+	},
+	--sounds = {},
+	drops = item_drops,
+	--[[
+	combat = {
+		search_enemy = true,
+	},
+	]]
+	spawning = {
+		abm_nodes = {
+			spawn_on = spawn_nodes,
+		},
+		abm_interval = sneeker.spawn_interval,
+		abm_chance = sneeker.spawn_chance,
+		number = 1,
+		light = {min=sneeker.spawn_minlight, max=sneeker.spawn_maxlight},
+		height_limit = {min=sneeker.spawn_minheight, max=sneeker.spawn_maxheight},
+	},
+}
+
+def.on_activate = function(self, staticdata, dtime_s)
+	--[[
 	self.yaw = 0
 	self.anim = 1
 	self.timer = 0
+	]]
 	self.visualx = 1
+	--[[
 	self.jump_timer = 0
 	self.turn_timer = 0
 	self.turn_speed = 0
+	]]
 	self.powered = false
+	--[[
 	self.knockback = false
 	self.state = math.random(1, 2)
 	self.old_y = self.object:get_pos().y
+	]]
 
+	--[[
 	-- despawning
 	self.lifetime = sneeker.lifetime
 	self.lifetimer = 0
 	self.check_despawn_player_distance = true
+	]]
 
 	local data = core.deserialize(staticdata)
 	if data and type(data) == "table" then
@@ -109,9 +185,11 @@ def.on_activate = function(self, staticdata)
 end
 
 
+--[[
 local function isnan(n)
 	return tostring(n) == tostring((-1)^.5)
 end
+]]
 
 local function expand(self)
 	if self.chase and self.visualx < 2 then
@@ -138,6 +216,7 @@ local function explode(self, pos)
 	core.sound_play("sneeker_explode", {object=self.object, gain=sneeker.boom_gain, max_hear_distance=2*64})
 end
 
+--[[
 local function h_collides(pos, collision_info, touching_ground)
 	if not touching_ground or type(collision_info) ~= "table" or #collision_info == 0 then
 		return false
@@ -166,11 +245,18 @@ local function h_collides(pos, collision_info, touching_ground)
 
 	return h_vel.x < walk_speed and h_vel.z < walk_speed, h_col.node_pos
 end
+]]
+
+local item_drops = {}
+if core.registered_items["tnt:gunpowder"] then
+	table.insert(item_drops, {"tnt:gunpowder", {min=1, max=2}, chance=0.66})
+end
 
 def.on_step = function(self, dtime, moveresult)
+	--[[
 	-- update lifetime timer
 	-- FIXME: this is longer than realtime
-	self.lifetimer = self.lifetimer + dtime
+	self.lifetimer = self.lifetimer + dtime_s
 	if self.lifetimer >= self.lifetime then
 		-- TODO: should have a death animation
 		self.object:remove()
@@ -183,9 +269,11 @@ def.on_step = function(self, dtime, moveresult)
 
 	local ANIM_STAND = 1
 	local ANIM_WALK  = 2
+	]]
 
 	local pos = self.object:get_pos()
 
+	--[[
 	if sneeker.despawn_player_far then
 		-- run check about once per 60 seconds
 		local interval_reached = math.floor(self.lifetimer % 60) == 0
@@ -246,9 +334,11 @@ def.on_step = function(self, dtime, moveresult)
 		self.yaw = self.yaw-self.turn_speed
 		self.object:set_yaw(self.yaw)
 	end
+	]]
 
 	expand(self)
 
+	--[[
 	self.chase = false
 
 	for  _, object in ipairs(inside) do
@@ -302,14 +392,17 @@ def.on_step = function(self, dtime, moveresult)
 			end
 		end
 	end
+	]]
 
 	if self.state == "chase" then
+		--[[
 		if self.anim ~= ANIM_WALK then
 			self.object:set_animation({x=animation.walk_START, y=animation.walk_END}, anim_speed, 0)
 			self.anim = ANIM_WALK
 		end
 
 		self.turn = "straight"
+		]]
 
 		local inside_2 = core.get_objects_inside_radius(pos, 2)
 
@@ -326,6 +419,7 @@ def.on_step = function(self, dtime, moveresult)
 			end
 		end
 
+		--[[
 		if #inside ~= 0 then
 			for  _, object in ipairs(inside) do
 				if object:is_player() and object:get_hp() ~= 0 then
@@ -372,8 +466,10 @@ def.on_step = function(self, dtime, moveresult)
 		else
 			self.state = "stand"
 		end
+		]]
 	end
 
+	--[[
 	-- Swim
 	local node = core.get_node(pos)
 	if core.get_item_group(node.name, "water") ~= 0 then
@@ -389,8 +485,10 @@ def.on_step = function(self, dtime, moveresult)
 	end
 
 	return true
+	]]
 end
 
+--[[
 def.on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, dir)
 	if hit_sound then
 		core.sound_play(hit_sound, {object=self.object}, parameters, true)
@@ -416,6 +514,7 @@ def.on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, 
 		local obj = core.add_item(p, {name="tnt:gunpowder", count=math.random(0, 2)})
 	end
 end
+]]
 
 def.get_staticdata = function(self)
 	return core.serialize({
@@ -423,7 +522,11 @@ def.get_staticdata = function(self)
 	})
 end
 
+--[[
 core.register_entity("sneeker:sneeker", def)
+]]
+
+cmer.register_mob(def)
 
 core.register_craftitem("sneeker:spawnegg", {
 	description = "Sneeker Spawn Egg",
