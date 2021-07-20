@@ -110,6 +110,31 @@ local function isnan(n)
 	return tostring(n) == tostring((-1)^.5)
 end
 
+local function expand(self)
+	if self.chase and self.visualx < 2 then
+		if self.hiss == false then
+			core.sound_play("sneeker_hiss", {object=self.object, gain=1.5, max_hear_distance=2*64})
+		end
+		self.visualx = self.visualx+0.05
+		self.object:set_properties({
+			visual_size = {x=self.visualx, y=1}
+		})
+		self.hiss = true
+	elseif self.visualx > 1 then
+		self.visualx = self.visualx-0.05
+		self.object:set_properties({
+			visual_size = {x=self.visualx, y=1}
+		})
+		self.hiss = false
+	end
+end
+
+local function explode(self, pos)
+	self.object:remove()
+	sneeker.boom(pos, self.powered)
+	core.sound_play("sneeker_explode", {object=self.object, gain=sneeker.boom_gain, max_hear_distance=2*64})
+end
+
 def.on_step = function(self, dtime)
 	-- update lifetime timer
 	-- FIXME: this is longer than realtime
@@ -184,22 +209,7 @@ def.on_step = function(self, dtime)
 		self.object:set_yaw(self.yaw)
 	end
 
-	if self.chase and self.visualx < 2 then
-		if self.hiss == false then
-			core.sound_play("sneeker_hiss", {pos=pos, gain=1.5, max_hear_distance=2*64})
-		end
-		self.visualx = self.visualx+0.05
-		self.object:set_properties({
-			visual_size = {x=self.visualx, y=1}
-		})
-		self.hiss = true
-	elseif self.visualx > 1 then
-		self.visualx = self.visualx-0.05
-		self.object:set_properties({
-			visual_size = {x=self.visualx, y=1}
-		})
-		self.hiss = false
-	end
+	expand(self)
 
 	self.chase = false
 
@@ -276,9 +286,7 @@ def.on_step = function(self, dtime)
 				if object:is_player() and object:get_hp() ~= 0 then
 					self.chase = true
 					if self.visualx >= 2 then
-						self.object:remove()
-						sneeker.boom(pos, self.powered)
-						core.sound_play("sneeker_explode", {pos=pos, gain=sneeker.boom_gain, max_hear_distance=2*64})
+						explode(self, pos)
 						return true
 					end
 				end
