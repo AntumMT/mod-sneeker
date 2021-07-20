@@ -3,3 +3,6 @@ TODO:
 - add version using mobs_redo API
 - add version using cmer API
 - add griefing option
+- fix chasing player
+- add wear to armor when exploding
+- disable attacking if damage disabled
