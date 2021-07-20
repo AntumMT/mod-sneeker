@@ -28,7 +28,6 @@ end
 local scripts = {
 	"settings",
 	"tnt_function",
-	"spawn",
 	"entity",
 }
 
