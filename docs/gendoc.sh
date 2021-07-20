@@ -1,13 +1,13 @@
 #!/bin/bash
 
-DOCS="$(dirname $(readlink -f $0))"
-ROOT="$(dirname ${DOCS})"
-CONFIG="${DOCS}/config.ld"
+docs="$(dirname $(readlink -f $0))"
+root="$(dirname ${docs})"
+config="${docs}/config.ld"
 
-cd "${ROOT}"
+cd "${root}"
 
 # Clean old files
-rm -rf "${DOCS}/api.html" "${DOCS}/scripts" "${DOCS}/modules"
+rm -rf "${docs}/reference"
 
 # Create new files
-ldoc -c "${CONFIG}" -d "${DOCS}" -o "api" "${ROOT}"
+ldoc -c "${config}" -d "${docs}/reference" "${root}"
