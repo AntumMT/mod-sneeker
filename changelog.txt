@@ -3,6 +3,7 @@ v1.1
 ----
 - added sound when hit
 - fixed entity vertical positioning
+- added setting to customize spawn nodes
 
 v1.0
 ----
