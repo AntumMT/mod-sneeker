@@ -7,4 +7,5 @@ TODO:
 - disable attacking if damage disabled
 - make powered versions run faster when chasing
 - fix knockback when chasing
+- fix hit sound when chasing
 - make sneeker stop when within 2 of player
