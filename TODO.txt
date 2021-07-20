@@ -9,3 +9,4 @@ TODO:
 - fix knockback when chasing
 - fix hit sound when chasing
 - make sneeker stop when within 2 of player
+- use asm_spawneggs for egg
