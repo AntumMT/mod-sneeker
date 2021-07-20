@@ -1,4 +1,12 @@
 
+local sounds_enabled = core.get_modpath("sounds") ~= nil
+local hit_sound
+
+if sounds_enabled then
+	hit_sound = "sounds_entity_hit"
+end
+
+
 local function jump(self, pos, direction)
 	local velocity = self.object:get_velocity()
 	if core.registered_nodes[core.get_node(pos).name].climbable then
@@ -348,6 +356,10 @@ def.on_step = function(self, dtime)
 end
 
 def.on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, dir)
+	if hit_sound then
+		core.sound_play(hit_sound, {object=self.object}, parameters, true)
+	end
+
 	if self.knockback == false then
 		local knockback_level = self.knockback_level
 		self.object:set_velocity({x=dir.x*knockback_level, y=3, z=dir.z*knockback_level})

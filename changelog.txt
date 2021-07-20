@@ -1,4 +1,8 @@
 
+v1.1
+----
+- added sound when hit
+
 v1.0
 ----
 - forked & renamed from Rui's original "creeper" mod

@@ -16,6 +16,11 @@ An explosive nuisance for [Minetest](http://minetest.net/).
 
 Settings documented in [reference][].
 
+### Requirements:
+
+- Depends: default, tnt
+- Optional depends: nether, sounds
+
 ### Links:
 
 - [![ContentDB](https://img.shields.io/static/v1?label=ContentDB&message=sneeker&color=%23375a7f&logo=minetest)](https://content.minetest.net/packages/AntumDeluge/sneeker/)
