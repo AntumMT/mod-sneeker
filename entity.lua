@@ -115,7 +115,7 @@ local def = {
 	modes = {
 		idle = {chance=0.3},
 		walk = {chance=0.7, moving_speed=1.5},
-		follow = {radius=10},
+		--chase = {moving_speed=1.5},
 		--death = {},
 	},
 	model = {
@@ -126,7 +126,7 @@ local def = {
 		animations = {
 			idle = {start=0, stop=79, speed=30},
 			walk = {start=168, stop=187, speed=30},
-			follow = {start=168, stop=187, speed=30},
+			--chase = {start=168, stop=187, speed=30},
 			--death = {},
 		},
 	},
@@ -190,14 +190,12 @@ def.on_activate = function(self, staticdata, dtime_s)
 end
 
 
---[[
 local function isnan(n)
 	return tostring(n) == tostring((-1)^.5)
 end
-]]
 
 local function expand(self)
-	if self.chase and self.visualx < 2 then
+	if self.expanding and self.visualx < 2 then
 		if self.hiss == false then
 			core.sound_play("sneeker_hiss", {object=self.object, gain=1.5, max_hear_distance=2*64})
 		end
@@ -251,6 +249,46 @@ local function h_collides(pos, collision_info, touching_ground)
 	return h_vel.x < walk_speed and h_vel.z < walk_speed, h_col.node_pos
 end
 ]]
+
+local function chase(self, target)
+	-- FIXME: why does setting mode = "chase" not work?
+	if not self.chase_anim then
+		self.object:set_animation({x=168, y=187}, 30, 0)
+		self.chase_anim = true
+	end
+
+	local pos = self.object:get_pos()
+	local tpos = target:get_pos()
+
+	local vec = {x=tpos.x-pos.x, y=tpos.y-pos.y, z=tpos.z-pos.z}
+	local yaw = math.atan(vec.z/vec.x)+math.pi^2
+	if tpos.x > pos.x then
+		yaw = yaw+math.pi
+	end
+	yaw = yaw-2
+	self.object:set_yaw(yaw)
+	local direction = {x=math.sin(yaw)*-1, y=0, z=math.cos(yaw)}
+
+	-- FIXME: hack
+	local can_set = true
+	for _, c in ipairs({direction.x*2.5, direction.z*2.5}) do
+		if isnan(c) then
+			can_set = false
+			break
+		end
+	end
+
+	if can_set then
+		self.object:set_velocity({x=direction.x*2.5, y=self.object:get_velocity().y, z=direction.z*2.5})
+	end
+end
+
+local function end_chase(self)
+	self.chasing = nil
+	self.chase_anim = false
+	self.mode = "idle"
+	self.expanding = false
+end
 
 def.on_step = function(self, dtime, moveresult)
 	--[[
@@ -338,6 +376,17 @@ def.on_step = function(self, dtime, moveresult)
 
 	expand(self)
 
+	local players_within_10 = {}
+	for _, object in ipairs(core.get_objects_inside_radius(pos, 10)) do
+		if object:is_player() then
+			table.insert(players_within_10, object)
+		end
+	end
+
+	if not self.chasing then
+		self.chasing = players_within_10[1]
+	end
+
 	--[[
 	self.chase = false
 
@@ -394,7 +443,46 @@ def.on_step = function(self, dtime, moveresult)
 	end
 	]]
 
-	if self.state == "chase" then
+	if self.chasing then
+		if self.chasing:get_hp() > 0 then
+			self.mode = "chase"
+
+			local within_2 = false
+			for _, object in ipairs(core.get_objects_inside_radius(pos, 2)) do
+				if object == self.chasing then
+					within_2 = true
+					break
+				end
+			end
+
+			if within_2 then
+				if self.visualx >= 2 then
+					explode(self, pos)
+					self.chasing = nil
+					return true
+				end
+				self.expanding = true
+			else
+				self.expanding = false
+			end
+
+			local within_10 = false
+			for _, object in ipairs(players_within_10) do
+				if object == self.chasing then
+					within_10 = true
+					break
+				end
+			end
+
+			if within_10 then
+				-- follow player
+				chase(self, self.chasing)
+				return true
+			end
+		end
+
+		end_chase(self)
+
 		--[[
 		if self.anim ~= ANIM_WALK then
 			self.object:set_animation({x=animation.walk_START, y=animation.walk_END}, anim_speed, 0)
@@ -402,7 +490,6 @@ def.on_step = function(self, dtime, moveresult)
 		end
 
 		self.turn = "straight"
-		]]
 
 		local inside_2 = core.get_objects_inside_radius(pos, 2)
 
@@ -418,6 +505,7 @@ def.on_step = function(self, dtime, moveresult)
 				end
 			end
 		end
+		]]
 
 		--[[
 		if #inside ~= 0 then
@@ -467,6 +555,8 @@ def.on_step = function(self, dtime, moveresult)
 			self.state = "stand"
 		end
 		]]
+	elseif self.mode == "chase" then
+		self.mode = "idle"
 	end
 
 	--[[
