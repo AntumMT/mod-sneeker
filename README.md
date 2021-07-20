@@ -74,6 +74,7 @@ Settings:
 ---
 ### Links:
 
+- [![ContentDB]()](https://content.minetest.net/packages/AntumDeluge/sneeker/)
 - [Forum thread](https://forum.minetest.net/viewtopic.php?t=26685)
 - [Original forum thread](https://forum.minetest.net/viewtopic.php?t=11891)
 - [Git repo](https://github.com/AntumMT/mod-sneeker)
