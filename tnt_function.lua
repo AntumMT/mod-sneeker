@@ -288,6 +288,8 @@ local function explode(pos, radius)
 end
 
 function sneeker.boom(pos, large)
+	if not pos then return end
+
 	local radius = radius
 	if large then
 		radius = large_radius
