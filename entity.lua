@@ -95,6 +95,11 @@ if #spawn_nodes == 0 then
 	sneeker.log("warning", "no spawning nodes set, cannot spawn")
 end
 
+local item_drops = {}
+if core.registered_items["tnt:gunpowder"] then
+	table.insert(item_drops, {"tnt:gunpowder", {min=1, max=2}, chance=0.66})
+end
+
 local def = {
 	name = "sneeker:sneeker",
 	nametag = "Sneeker",
@@ -246,11 +251,6 @@ local function h_collides(pos, collision_info, touching_ground)
 	return h_vel.x < walk_speed and h_vel.z < walk_speed, h_col.node_pos
 end
 ]]
-
-local item_drops = {}
-if core.registered_items["tnt:gunpowder"] then
-	table.insert(item_drops, {"tnt:gunpowder", {min=1, max=2}, chance=0.66})
-end
 
 def.on_step = function(self, dtime, moveresult)
 	--[[
