@@ -2,3 +2,8 @@
 TODO:
 - add version using mobs_redo API
 - add version using cmer API
+- fix chasing player
+- fix explosion leaving "tnt:boom" node
+- add wear to armor when exploding
+- add no-griefing setting
+- disable attacking if damage disabled
