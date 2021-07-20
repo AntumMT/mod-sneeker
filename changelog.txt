@@ -4,6 +4,7 @@ v1.1
 - added sound when hit
 - fixed entity vertical positioning
 - added setting to customize spawn nodes
+- fixed tnt:boom node left after explosion
 
 v1.0
 ----
