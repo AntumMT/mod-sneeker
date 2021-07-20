@@ -51,6 +51,8 @@ local function random_turn(self)
 	end
 end
 
+local walk_speed = 1.5
+
 local def = {
 	hp_max = 20,
 	physical = true,
@@ -67,7 +69,7 @@ local def = {
 		walk_START = 168,
 		walk_END = 187
 	},
-	walk_speed = 1.5,
+	walk_speed = walk_speed,
 	jump_height = 5,
 	animation_speed = 30,
 	knockback_level = 2
@@ -135,7 +137,36 @@ local function explode(self, pos)
 	core.sound_play("sneeker_explode", {object=self.object, gain=sneeker.boom_gain, max_hear_distance=2*64})
 end
 
-def.on_step = function(self, dtime)
+local function h_collides(pos, collision_info, touching_ground)
+	if not touching_ground or type(collision_info) ~= "table" or #collision_info == 0 then
+		return false
+	end
+
+	local pos_y = math.floor(pos.y)
+	local h_col
+
+	for _, col in ipairs(collision_info) do
+		local npos = col.node_pos
+		if npos and col.type == "node" then
+			-- exclude ground collisions
+			if math.floor(npos.y) > pos_y then
+				h_col = col
+				break
+			end
+		end
+	end
+
+	if not h_col then return false end
+
+	local h_vel = {
+		x = math.floor(h_col.new_velocity.x * 10) / 10,
+		z = math.floor(h_col.new_velocity.z * 10) / 10,
+	}
+
+	return h_vel.x < walk_speed and h_vel.z < walk_speed, h_col.node_pos
+end
+
+def.on_step = function(self, dtime, moveresult)
 	-- update lifetime timer
 	-- FIXME: this is longer than realtime
 	self.lifetimer = self.lifetimer + dtime
@@ -177,6 +208,13 @@ def.on_step = function(self, dtime)
 
 			-- set flag to not check again until next interval
 			self.check_despawn_player_distance = false
+		end
+	end
+
+	if self.chase or self.state == "chase" or self.state == "walk" then
+		local collided, npos = h_collides(pos, moveresult.collisions, moveresult.touching_ground)
+		if collided then
+			jump(self, npos, self.direction)
 		end
 	end
 
@@ -262,11 +300,6 @@ def.on_step = function(self, dtime)
 				self.turn_speed = 0.05*math.random()
 			end
 		end
-
-		-- Jump
-		if self.jump_timer > 0.2 then
-			jump(self, pos, self.direction)
-		end
 	end
 
 	if self.state == "chase" then
@@ -332,11 +365,6 @@ def.on_step = function(self, dtime)
 
 					if can_set then
 						self.object:set_velocity({x=direction.x*2.5, y=velocity.y, z=direction.z*2.5})
-					end
-
-					-- Jump
-					if self.jump_timer > 0.2 then
-						jump(self, pos, direction)
 					end
 				end
 			end
