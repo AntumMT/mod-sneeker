@@ -20,11 +20,16 @@ Settings documented in [reference][].
 
 - [![ContentDB](https://img.shields.io/static/v1?label=ContentDB&message=sneeker&color=%23375a7f&logo=minetest)](https://content.minetest.net/packages/AntumDeluge/sneeker/)
 - [Forum thread](https://forum.minetest.net/viewtopic.php?t=26685)
-- [Original forum thread](https://forum.minetest.net/viewtopic.php?t=11891)
 - [Git repo](https://github.com/AntumMT/mod-sneeker)
 - [Reference][reference]
 - [Changelog](changelog.txt)
 - [TODO](TODO.txt)
+
+Rui's original mod:
+
+- Forum thread (deleted: `t=11891`)
+- [Final version](https://github.com/AntumMT/mod-sneeker/releases/tag/Rui)
+- [Updated for Minetest 5.x](https://github.com/AntumMT/mod-sneeker/releases/tag/5.x)
 
 
 [reference]: https://antummt.github.io/mod-sneeker/docs/reference/
