@@ -19,7 +19,7 @@ Settings documented in [reference][].
 ### Requirements:
 
 - Depends: default, tnt
-- Optional depends: nether, sounds
+- Optional depends: nether, sounds, simple_protection
 
 ### Links:
 
