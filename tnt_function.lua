@@ -301,4 +301,5 @@ function sneeker.boom(pos, large)
 	entity_physics(pos, radius)
 	eject_drops(drops, pos, radius)
 	add_effects(pos, radius)
+	core.remove_node(pos)
 end
