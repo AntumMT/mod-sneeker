@@ -92,6 +92,11 @@ for _, node_name in ipairs(spawn_nodes) do
 	end
 end
 
+local item_drops = {}
+if core.registered_items["tnt:gunpowder"] then
+	table.insert(item_drops, {"tnt:gunpowder", {min=1, max=2}, chance=0.66})
+end
+
 local def = {
 	name = "sneeker:sneeker",
 	nametag = "Sneeker",
@@ -211,11 +216,6 @@ local function explode(self, pos)
 	self.object:remove()
 	sneeker.boom(pos, self.powered)
 	core.sound_play("sneeker_explode", {object=self.object, gain=sneeker.boom_gain, max_hear_distance=2*64})
-end
-
-local item_drops = {}
-if core.registered_items["tnt:gunpowder"] then
-	table.insert(item_drops, {"tnt:gunpowder", {min=1, max=2}, chance=0.66})
 end
 
 def.on_step = function(self, staticdata, dtime_s)
