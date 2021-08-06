@@ -12,3 +12,4 @@ TODO:
 - use asm_spawneggs for egg
 - add localization support
 - add Spanish translation
+- fix removing single node if protected
