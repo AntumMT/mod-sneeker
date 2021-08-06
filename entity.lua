@@ -216,7 +216,6 @@ end
 local function explode(self, pos)
 	self.object:remove()
 	sneeker.boom(pos, self.powered)
-	core.sound_play("sneeker_explode", {object=self.object, gain=sneeker.boom_gain, max_hear_distance=2*64})
 end
 
 --[[

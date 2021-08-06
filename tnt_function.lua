@@ -307,7 +307,9 @@ function sneeker.boom(pos, large)
 	if large then
 		radius = large_radius
 	end
-	core.sound_play("sneeker_explode", {pos=pos, gain=1.5, max_hear_distance=2*64})
+	if sounds then
+		sounds.explosion:play(1, {pos=pos, gain=sneeker.boom_gain, max_hear_distance=2*64})
+	end
 	core.set_node(pos, {name="tnt:boom"})
 	core.get_node_timer(pos):start(0.5)
 	local drops = explode(pos, radius)
