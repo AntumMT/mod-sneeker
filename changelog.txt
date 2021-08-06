@@ -1,4 +1,9 @@
 
+next
+----
+- uses "sounds" mod
+
+
 v1.1
 ----
 - added sound when hit
@@ -6,6 +11,7 @@ v1.1
 - fixed tnt:boom node left after explosion
 - added setting to customize spawn nodes
 - added simple_protection support
+
 
 v1.0
 ----
