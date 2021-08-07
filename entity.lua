@@ -197,7 +197,7 @@ end
 local function expand(self)
 	if self.expanding and self.visualx < 2 then
 		if self.hiss == false and sounds then
-			sounds.fuse:play(1, {object=self.object, gain=1.5, max_hear_distance=2*64})
+			sounds.fuse(1, {object=self.object, gain=1.5, max_hear_distance=2*64})
 		end
 		self.visualx = self.visualx+0.05
 		self.object:set_properties({
