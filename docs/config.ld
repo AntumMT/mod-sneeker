@@ -45,7 +45,7 @@ local function chatcmd_handler(item)
 	for i, p in ipairs(item.tags.chatparam) do
 		output = output .. " " .. p
 	end
-	
+
 	return output
 end
 
@@ -53,6 +53,6 @@ function custom_display_name_handler(item, default_handler)
 	if item.type == "chatcmd" then
 		return chatcmd_handler(item)
 	end
-	
+
 	return default_handler(item)
 end
