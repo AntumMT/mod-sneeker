@@ -1,4 +1,4 @@
-title = "Sneeker mod for Minetest"
+title = "Sneeker mod for Luanti"
 project = "sneeker"
 format = "markdown"
 not_luadoc = true

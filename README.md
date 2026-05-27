@@ -1,8 +1,8 @@
-## Sneeker mod for Minetest
+## Sneeker mod for Luanti
 
 ### Description:
 
-An explosive nuisance for [Minetest](http://minetest.net/).
+An explosive nuisance for [Luanti](https://www.luanti.org/).
 
 ![screenshot](screenshot.png)
 
@@ -23,8 +23,8 @@ Settings documented in [reference][].
 
 ### Links:
 
-- [![ContentDB](https://img.shields.io/static/v1?label=ContentDB&message=sneeker&color=%23375a7f&logo=minetest)](https://content.minetest.net/packages/AntumDeluge/sneeker/)
-- [Forum thread](https://forum.minetest.net/viewtopic.php?t=26685)
+- [![ContentDB](https://img.shields.io/static/v1?label=ContentDB&message=sneeker&color=%23375a7f&logo=luanti)](https://content.luanti.org/packages/AntumDeluge/sneeker/)
+- [Forum thread](https://forum.luanti.org/viewtopic.php?t=26685)
 - [Git repo](https://github.com/AntumMT/mod-sneeker)
 - [Reference][reference]
 - [Changelog](changelog.txt)
@@ -34,7 +34,7 @@ Rui's original mod:
 
 - Forum thread (deleted: `t=11891`)
 - [Final version](https://github.com/AntumMT/mod-sneeker/releases/tag/Rui)
-- [Updated for Minetest 5.x](https://github.com/AntumMT/mod-sneeker/releases/tag/5.x)
+- [Updated for Luanti 5.x](https://github.com/AntumMT/mod-sneeker/releases/tag/5.x)
 
 
 [reference]: https://antummt.github.io/mod-sneeker/docs/reference/
