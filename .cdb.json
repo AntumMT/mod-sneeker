@@ -1,0 +1,19 @@
+{
+	"type": "MOD",
+	"title": "Sneeker",
+	"name": "sneeker",
+	"short_description": "An explosive nuisance.",
+	"dev_state": "BETA",
+	"ai_disclosure": "NONE",
+	"tags": ["mobs", "survival"],
+	"content_warnings": null,
+	"license": "MIT",
+	"media_license": "CC0-1.0",
+	"repo": "https://codeberg.org/AntumLuanti/mod-sneeker",
+	"website": null,
+	"issue_tracker": "https://codeberg.org/AntumLuanti/mod-sneeker/issues",
+	"forums": "26685",
+	"video_url": null,
+	"donate_url": null,
+	"translation_url": null
+}
