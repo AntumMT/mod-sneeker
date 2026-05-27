@@ -25,7 +25,10 @@ Settings documented in [reference][].
 
 - [![ContentDB](https://img.shields.io/static/v1?label=ContentDB&message=sneeker&color=%23375a7f&logo=luanti)](https://content.luanti.org/packages/AntumDeluge/sneeker/)
 - [Forum thread](https://forum.luanti.org/viewtopic.php?t=26685)
-- [Git repo](https://github.com/AntumMT/mod-sneeker)
+- Git repos:
+    - [Codeberg](https://codeberg.org/AntumLuanti/mod-sneeker)
+    - [GitHub](https://github.com/AntumMT/mod-sneeker)
+    - [GitLab](https://gitlab.com/AntumMT/mod-sneeker)
 - [Reference][reference]
 - [Changelog](changelog.txt)
 - [TODO](TODO.txt)
